@@ -4,9 +4,22 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
+const { validateUsername, validatePassword } = require('../validators/loginValidators');
 
 // POST /signup route for user signup
 router.post('/signup', async (req, res) => {
+
+  // Validate username format
+  if (!validateUsername(username)) {
+    return res.status(400).json({ message: 'Invalid username format' });
+  }
+
+  // Validate password length
+  if (!validatePassword(password)) {
+    return res.status(400).json({ message: 'Invalid password length' });
+  }
+
+
   try {
     // Extract username and password from request body
     const { username, password } = req.body;
