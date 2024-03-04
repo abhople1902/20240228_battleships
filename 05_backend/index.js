@@ -5,6 +5,7 @@ const authenticate = require('./middleware/authenticate');
 const { JWT_SECRET } = require('./config');
 const signupRouter = require('./routes/signup');
 const profileRouter = require('./routes/profile');
+const shipPlace = require('./routes/shipPlace');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/auth', signupRouter);
 app.use('/auth', profileRouter);
+app.use('/place', shipPlace);
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
