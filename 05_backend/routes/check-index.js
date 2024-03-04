@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Player1 = require('../models/player1')
+const Player = require('../models/player1');
 
-router.post('/ships', async (req, res) => {
+router.post('/index', async (req, res) => {
   try {
-    const { playerId, index } = req.body;
+    const { playerId, index } = req.body; // Extracting playerId and index from the request body
 
     // Finding the player by playerId
     const player = await Player.findOne({ playerID: playerId });
@@ -13,15 +13,15 @@ router.post('/ships', async (req, res) => {
       return res.status(404).json({ success: false, message: 'Player not found' });
     }
 
-    // Updating the placements array with the clicked index
-    player.placements.push(index);
-
-    // Saving the updated player document
-    await player.save();
+    // Checking if the index is stored in the placements array
+    const isIndexStored = player.placements.some(item => {
+      return item[0] === index[0] && item[1] === index[1];
+    });
 
     res.json({
       success: true,
-      message: 'Ships placements saved successfully.'
+      isIndexStored: isIndexStored,
+      message: isIndexStored ? 'Index is stored.' : 'Index is not stored.'
     });
   } catch (error) {
     console.error('Error:', error);

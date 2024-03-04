@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 const authenticate = async (req, res, next) => {
   // Get the JWT token from the Authorization header
-  const token = req.headers.authorization;
+  var token = req.headers.authorization.split(` `)[1];
 
   // Check if token exists
   if (!token) {
@@ -12,13 +12,15 @@ const authenticate = async (req, res, next) => {
 
   try {
     // Verify and decode the JWT token
+    console.log(token)
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+    console.log(decoded)
     // Extract user ID from decoded token
-    const username = decoded.username;
-    
+    // const username = decoded.username;
+    // console.log(username)
     // Fetch user from database based on user ID
-    const user = await User.findOne({ username });
+    const user = await User.findById(decoded.userId);
+    console.log(user)
     if (!user) {
       return res.status(401).json({ message: 'Unauthorized: User not found' });
     }
