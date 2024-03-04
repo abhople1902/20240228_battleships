@@ -1,4 +1,4 @@
-
+// To generate a secret key using salt
 // const bcrypt = require('bcryptjs');
 
 // const generateSecretKey = async () => {
