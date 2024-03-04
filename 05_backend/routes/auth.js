@@ -5,13 +5,25 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { JWT_SECRET } = require('../config');
 const app = express();
+const { validateUsername, validatePassword } = require('../validators/loginValidators');
 
 // app.use(express.json());
 
 // POST /auth/login
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  console.log(username);
+  // console.log(username);
+
+  // Validate username format
+  if (!validateUsername(username)) {
+    return res.status(400).json({ message: 'Invalid username format' });
+  }
+
+  // Validate password length
+  if (!validatePassword(password)) {
+    return res.status(400).json({ message: 'Invalid password length' });
+  }
+  
   try {
     const user = await User.findOne({ username : username});
     console.log(user);
