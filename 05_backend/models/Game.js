@@ -1,26 +1,24 @@
 const mongoose = require('mongoose');
-const { Ships: shipType, Players: playerType, Gamestatus: Status } = require('../../constants')
-const Placements = require('../models/placements');
-const Moves = require('../models/Moves');
+
+const { gameStatusCodes } = require('../../constants')
+const placements = require('../models/placements');
+const moves = require('../models/moves');
 
 const playerSchema = new mongoose.Schema({
-  startedBy: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-  startedAt: {type: Date},
-  grid_width: {type: Number, default: 8},
-  grid_height: {type: Number, default: 8},
-  grid: [[{
-    type: Number
-  }]],
-  
-  joinedBy: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-  joinedAt: {type: Date},
-  start_move: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-  placements_player1: {type: Placements},
-  placements_player2: {type: Placements},
+  startedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  startedAt: { type: Date },
+  gridWidth: { type: Number, default: 8 },
+  gridHeight: { type: Number, default: 8 },
+
+  joinedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  joinedAt: { type: Date },
+  firstMove: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  placementsPlayer1: { type: placements },
+  placementsPlayer2: { type: placements },
   moves: [{
-    type: Moves
+    type: moves
   }],
-  gameStatus: {type: Gamestatus, default: Gamestatus.NotStarted},
+  gameStatus: { type: Number, enum: gameStatusCodes, default: gameStatusCodes[0] }
 });
 
 module.exports = new mongoose.model('Player1', playerSchema);

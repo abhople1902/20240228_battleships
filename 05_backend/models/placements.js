@@ -1,16 +1,13 @@
 const mongoose = require('mongoose');
-const { Ships, Players, status } = require('../../constants');
+const { shipType } = require('../../constants');
 const Position = require('../models/positions');
 
-const placements = new mongoose.Schema({
+const placementsSchema = new mongoose.Schema({
   playerID: { type: String, required: true },
-  placements: [{
+  shipPlacements: [{
     type: Position
   }],
-  shipType: {
-    type: String,
-    enum: [Ships.Carrier, Ships.Submarine, Ships.Destroyer, Ships.Cruiser, Ships.Frigate]
-  }
+  shipType: { type: String, enum: shipType }
 });
 
-module.exports = placements;
+module.exports = placementsSchema;
