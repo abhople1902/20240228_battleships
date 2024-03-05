@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: conic-gradient(from 45deg, #7C05F2, #010626, #021859, #0B59BF, #30A8F2);
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 0.05em;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            margin: auto;
+            position: relative;
+            height: 100vh;
+            color: #fff;
+            /* Text color */
+        }
+
+        .navbar {
+            background-color: #ebe1e1;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            /* Make navbar sticky */
+            top: 0;
+            /* Stick navbar to the top */
+            width: 100%;
+            /* Full width */
+            z-index: 999;
+            /* Ensure navbar stays on top */
+        }
+
+        .logo {
+            width: 40px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        .nav-links button {
+            background-color: #30A8F2;
+            border-radius: 5px;
+            color: #1c1414;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+            padding: 8px 16px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            letter-spacing: 0.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links button:hover {
+            background-color: #555;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+            margin-top: 60px;
+            /* Adjust content margin to accommodate the fixed navbar */
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #ffcb05;
+            /* Heading color */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            /* Text shadow */
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #f0f0f0;
+            /* Paragraph text color */
+            font-weight: 400;
+            /* Normal font weight */
+        }
+
+        /* added background here */
+        .about-info {
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            /* Rounded corners */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            /* Box shadow */
+        }
+    </style>
+</head>
+
+<body>
+    <!--  this is the navbar part  -->
+    <div class="navbar">
+        <img src="IMG.jpg" alt="Logo" class="logo">
+        <div class="nav-links">
+            <button>Login</button>
+            <button>Sign up</button>
+        </div>
+    </div>
+    <!--  content have the info related to the game -->
+    <div class="content">
+        <div class="about-info">
+            <h2>About Us</h2>
+            <p>Welcome to our website! We are passionate about bringing people together through fun and engaging games.
+            </p>
+            <h2>Battleship Game</h2>
+            <p>Battleship is a classic two-player guessing game where each player tries to sink the opponent's fleet of
+                ships by guessing their coordinates on a grid. The game typically involves strategy, deduction, and a
+                bit of luck.</p>
+            <p><strong>Objective:</strong> The objective of Battleship is to sink all of your opponent's ships before
+                they sink yours.</p>
+            <p><strong>Equipment:</strong> The game requires a game board, ships of different lengths, and a strategic
+                mindset.</p>
+            <p><strong>Gameplay:</strong> Players take turns calling out coordinates on the opponent's grid to guess the
+                location of their ships. Hits and misses are marked on the grid until one player's fleet is completely
+                sunk.</p>
+            <p><strong>Strategy:</strong> Players use deduction and logic to guess the location of their opponent's
+                ships, employing strategies like "hunting" for ships after a hit or "covering" an area with guesses to
+                increase the chance of hitting a ship.</p>
+            <p>Battleship is a popular game enjoyed by people of all ages and is often played as a board game, but it
+                can also be played digitally.</p>
+        </div>
+    </div>
+</body>
+
+</html>
