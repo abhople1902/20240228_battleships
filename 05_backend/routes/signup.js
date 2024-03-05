@@ -9,6 +9,10 @@ const { validateUsername, validatePassword } = require('../validators/signupVali
 // POST /signup route for user signup
 router.post('/signup', async (req, res) => {
 
+
+  // Extract username and password from request body
+  const { username, password, email } = req.body;
+  
   // Validate username format
   if (!validateUsername(username)) {
     return res.status(400).json({ message: 'Invalid username format' });
@@ -19,11 +23,7 @@ router.post('/signup', async (req, res) => {
     return res.status(400).json({ message: 'Invalid password length' });
   }
 
-
   try {
-    // Extract username and password from request body
-    const { username, password } = req.body;
-
     // Check if username already exists in the database
     const existingUser = await User.findOne({ username });
     if (existingUser) {
@@ -36,7 +36,8 @@ router.post('/signup', async (req, res) => {
     // Create new user document
     const newUser = new User({
       username,
-      password: hashedPassword
+      password: hashedPassword,
+      email
     });
 
     // Save the new user document to the database

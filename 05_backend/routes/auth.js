@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { JWT_SECRET } = require('../config');
 const app = express();
-const { validateUsername, validatePassword } = require('../validators/loginValidators');
+const { validateUsername, validatePassword } = require('../validators/loginValidator');
 
 // app.use(express.json());
 
@@ -23,22 +23,30 @@ router.post('/login', async (req, res) => {
   if (!validatePassword(password)) {
     return res.status(400).json({ message: 'Invalid password length' });
   }
-  
+
   try {
-    const user = await User.findOne({ username : username});
+    const user = await User.findOne({ username: username });
     console.log(user);
     if (!user) {
       return res.status(401).json({ message: 'Invalid user' });
     }
 
-    console.log(password)
-    if (password === user.password) {
+    // console.log(password)
+    // if (password === user.password) {
+    //   const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+    //   console.log("TOKEN GENERATED")
+    //   res.json({ token });
+    // }
+    // else {
+    //   res.status(401).json({ message: 'Invalid password' });
+    // }
+    const validPassword = bcrypt.compare(req.body.password, user.password);
+    if (!validPassword) {
+      return res.json({ success: false, message: 'passwords do not match' });
+    } else if (validPassword) {
       const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
       console.log("TOKEN GENERATED")
-      res.json({ token });
-    }
-    else {
-      res.status(401).json({ message: 'Invalid password' });
+      return res.json({ token });
     }
 
   } catch (error) {

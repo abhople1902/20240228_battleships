@@ -6,11 +6,11 @@ const { JWT_SECRET } = require('./config');
 const signupRouter = require('./routes/signup');
 const profileRouter = require('./routes/profile');
 const shipPlace = require('./routes/shipPlace');
-const indexCheck = require('./routes/check-index');
+const indexCheck = require('./routes/checkIndex');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = 'mongodb+srv://Ayush:2BXNWx4qaZkr3C5y@cluster0.ijs1ymf.mongodb.net/jwt?retryWrites=true&w=majority&appName=Cluster0';
+const MONGODB_URI = 'mongodb+srv://Ayush:2BXNWx4qaZkr3C5y@cluster0.ijs1ymf.mongodb.net/ronaldo?retryWrites=true&w=majority&appName=Cluster0';
 
 
 app.use(express.json());

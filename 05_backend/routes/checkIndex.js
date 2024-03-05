@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Player = require('../models/player1');
+const Player = require('../models/Game');
 
 router.post('/index', async (req, res) => {
   try {

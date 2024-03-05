@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { shipType } = require('../../constants');
+const { shipType } = require('../constants');
 const Position = require('../models/positions');
 
 const placementsSchema = new mongoose.Schema({
