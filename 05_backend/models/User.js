@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Ships, Players, status } = require('../../constants');
+const { playerType } = require('../../constants');
 
 const userSchema = new mongoose.Schema({
   // user_id: {type: Number, required: true, unique: true},
@@ -9,11 +9,7 @@ const userSchema = new mongoose.Schema({
   // gamesWon: {type: Number, default: 0},
   // totalGamesPlayed: {type: Number, default: 0},
   friends: [{type: mongoose.Schema.Types.ObjectId, ref:'User'}],
-  playerType: [{
-    type: String,
-    enum: [Players.Bot, Players.Human],
-    default: Players.Bot
-  }]
+  playerType: { type: String, enum:playerType, default: playerType[0] },
 });
 
 module.exports = new mongoose.model('User', userSchema);
