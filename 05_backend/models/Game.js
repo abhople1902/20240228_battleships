@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const { gameStatusCodes } = require('../../constants')
+const { gameStatusCodes } = require('../constants')
 const placements = require('../models/placements');
 const moves = require('../models/moves');
 
@@ -13,8 +13,8 @@ const playerSchema = new mongoose.Schema({
   joinedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   joinedAt: { type: Date },
   firstMove: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  placementsPlayer1: { type: placements },
-  placementsPlayer2: { type: placements },
+  placementsPlayer1: [{ type: placements }],
+  placementsPlayer2: [{ type: placements }],
   moves: [{
     type: moves
   }],
