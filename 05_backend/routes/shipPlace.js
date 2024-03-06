@@ -12,8 +12,9 @@ router.post('/ships', async (req, res) => {
       return res.status(404).json({ success: false, message: 'Player not found' });
     }
     // Updating the placements array with the clicked index
-    const shipPlacements = gaming.placementsPlayer2
+    
     if(typeOfPlayer === 'Human'){
+      // const shipPlacements = gaming.placementsPlayer1
       const placement = {
         playerID,
         shipPlacements: position,
@@ -21,8 +22,12 @@ router.post('/ships', async (req, res) => {
       }
       gaming.placementsPlayer1.push(placement);
     } else {
-      shipPlacements.push(index);
-      gaming.placementsPlayer2 = shipPlacements
+      const placement = {
+        playerID,
+        shipPlacements: position,
+        shipType
+      }
+      gaming.placementsPlayer2.push(placement);
     }
 
     // Saving the updated player document
