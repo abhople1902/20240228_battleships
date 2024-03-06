@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Game = require('../models/Game');
+const { gameStatusCodes } = require('../constants')
+const User = require('../models/User')
 
 router.post('/ships', async (req, res) => {
   try {
@@ -64,3 +66,53 @@ router.post('/ships', async (req, res) => {
 });
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+router.get('/user-stats/:userId', async (req, res) => {
+  try {
+    // const { gameId, playertype, position } = req.body;
+    const userId = req.params.gameId;
+
+    // Find all games where the user participated
+    const games = await Game.find({
+      $or: [{ startedBy: gameId }, { joinedBy: gameId }],
+    });
+
+    // Calculate user statistics
+    let winCount = 0;
+    let loseCount = 0;
+    let matchCount = 0;
+
+    games.forEach(game => {
+      if (game.gameStatus === 'WIN') {
+        if (game.startedBy === gameId) {
+          winCount++;
+        }
+      } else if (game.gameStatus === 'LOSE') {
+        if (game.startedBy === gameId) {
+          loseCount++;
+        }
+      }
+      // user.totalGamesPlayed++;
+    });
+    res.json({
+      userId,
+      winCount,
+      loseCount,
+      matchCount,
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
