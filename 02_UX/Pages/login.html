@@ -33,6 +33,10 @@
             width: 300px;
             padding: 64px 15px 24px;
             margin: 0 auto;
+            position: absolute; /* Add this */
+            left: 5%;
+            top: 45%; /* Adjust as needed */
+            transform: translateY(-50%); /* Center vertically */
         }
 
         .control {
@@ -196,6 +200,23 @@
         .nav-links button:hover {
             background-color: #555;
         }
+        .main-body-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            width: 100%;
+        }
+        .image-right {
+            margin-left: 600px; /* Adjust as needed */
+        }
+
+        .image {
+            width: 70%;
+            height: 70%;
+            border-radius: 20px;
+        }
+
 
     </style>
 </head>
@@ -208,46 +229,51 @@
             <button>Sign up</button>
         </div>
     </div>
-    <form class="form" autocomplete="off">
-        <div class="control">
-            <h1>Sign In</h1>
-        </div>
-        <div class="control block-cube block-input">
-            <input name="username" type="text" placeholder="Username">
-            <div class="bg-top">
-                <div class="bg-inner"></div>
+    <div class="main-body-container">
+        <form class="form" autocomplete="off">
+            <div class="control">
+                <h1>Sign In</h1>
             </div>
-            <div class="bg-right">
-                <div class="bg-inner"></div>
+            <div class="control block-cube block-input">
+                <input name="username" type="text" placeholder="Username">
+                <div class="bg-top">
+                    <div class="bg-inner"></div>
+                </div>
+                <div class="bg-right">
+                    <div class="bg-inner"></div>
+                </div>
+                <div class="bg">
+                    <div class="bg-inner"></div>
+                </div>
             </div>
-            <div class="bg">
-                <div class="bg-inner"></div>
+            <div class="control block-cube block-input">
+                <input name="password" type="password" placeholder="Password">
+                <div class="bg-top">
+                    <div class="bg-inner"></div>
+                </div>
+                <div class="bg-right">
+                    <div class="bg-inner"></div>
+                </div>
+                <div class="bg">
+                    <div class="bg-inner"></div>
+                </div>
             </div>
-        </div>
-        <div class="control block-cube block-input">
-            <input name="password" type="password" placeholder="Password">
-            <div class="bg-top">
-                <div class="bg-inner"></div>
-            </div>
-            <div class="bg-right">
-                <div class="bg-inner"></div>
-            </div>
-            <div class="bg">
-                <div class="bg-inner"></div>
-            </div>
-        </div>
-        <button class="btn block-cube block-cube-hover" type="button">
-            <div class="bg-top">
-                <div class="bg-inner"></div>
-            </div>
-            <div class="bg-right">
-                <div class="bg-inner"></div>
-            </div>
-            <div class="bg">
-                <div class="bg-inner"></div>
-            </div>
-            <div class="text">Log In</div>
-        </button>
-    </form> 
+            <button class="btn block-cube block-cube-hover" type="button">
+                <div class="bg-top">
+                    <div class="bg-inner"></div>
+                </div>
+                <div class="bg-right">
+                    <div class="bg-inner"></div>
+                </div>
+                <div class="bg">
+                    <div class="bg-inner"></div>
+                </div>
+                <div class="text">Log In</div>
+            </button>
+        </form>
+        <div class="image-right">
+            <img src="loginbg.jpg" alt="Your Image" class="image">
+        </div> 
+    </div>
 </body>
 </html>
