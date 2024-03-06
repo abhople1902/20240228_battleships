@@ -4,20 +4,25 @@ const Player1 = require('../models/Game')
 
 router.post('/ships', async (req, res) => {
   try {
-    const { playerId, index } = req.body;
+    const { gameId, playertype, index } = req.body;
 
-    // Finding the player by playerId
-    const player = await Player.findOne({ playerID: playerId });
-
-    if (!player) {
+    const gaming = await Game.findOne({ gameId: gameId });
+    console.log(gaming)
+    const typeOfPlayer = playertype
+    if (!typeOfPlayer) {
       return res.status(404).json({ success: false, message: 'Player not found' });
     }
-
+    console.log(typeOfPlayer)
     // Updating the placements array with the clicked index
-    player.placements.push(index);
+    if(typeOfPlayer === 'Human'){
+      // gaming.placementsPlayer1.push(index);
+      console.log(index)
+    } else {
+      gaming.placementsPlayer2.push(index);
+    }
 
     // Saving the updated player document
-    await player.save();
+    await gaming.save();
 
     res.json({
       success: true,

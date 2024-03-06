@@ -11,7 +11,7 @@ router.post('/signup', async (req, res) => {
 
 
   // Extract username and password from request body
-  const { username, password, email } = req.body;
+  const { username, password, email, playertype } = req.body;
   
   // Validate username format
   if (!validateUsername(username)) {
@@ -37,7 +37,8 @@ router.post('/signup', async (req, res) => {
     const newUser = new User({
       username,
       password: hashedPassword,
-      email
+      email,
+      playertype
     });
 
     // Save the new user document to the database
