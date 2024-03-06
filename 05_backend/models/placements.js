@@ -3,7 +3,7 @@ const { shipType } = require('../constants');
 const Position = require('../models/positions');
 
 const placementsSchema = new mongoose.Schema({
-  playerID: { type: String, required: true },
+  playerID: { type: String },
   shipPlacements: [{
     type: Position
   }],
