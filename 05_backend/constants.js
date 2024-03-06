@@ -17,8 +17,8 @@
 //   Terminated = -1,
 //   Finished = 2
 // }
-// export const shipType = ['Carriers', 'Submarine', 'Destroyer', 'Cruiser', 'Frigate']
 
+const shipType = ['Carriers', 'Submarine', 'Destroyer', 'Cruiser', 'Frigate']
 const playerType = ['Bot', 'Human']
 const gameStatusCodes = [0, -1, 1, 2]
 module.exports = {playerType, gameStatusCodes}
