@@ -1,17 +1,20 @@
+/* Styles for a container element */
 .container {
-    width: 100%;
-    margin: auto;
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
+    width: 100%; /* Full width */
+    margin: auto; /* Center horizontally */
+    position: relative; /* Positioned relative to its containing block */
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Hide overflowing content */
 }
 
+/* Styles for a background element within the container */
 .background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: -1;
-    filter: brightness(50%);
-    background-size: cover;
+    position: absolute; /* Position absolute within its containing block */
+    top: 0; /* Positioned at the top of its containing block */
+    left: 0; /* Positioned at the left of its containing block */
+    width: 100%; /* Full width */
+    z-index: -1; /* Placed behind other elements */
+    filter: brightness(50%); /* Apply brightness filter */
+    background-size: cover; /* Cover the entire background */
 }
+
