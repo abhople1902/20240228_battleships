@@ -5,7 +5,7 @@ import { NavbarComponent } from './auth/navbar/navbar.component';
 import { NavBarComponent } from './mainpage/nav-bar/nav-bar.component';
 import { ContentComponent } from './mainpage/content/content.component';
 import { BodyComponent } from './mainpage/body/body.component';
-
+// import { NavBarComponent } from './mainpage/nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-root',

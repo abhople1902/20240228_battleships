@@ -1,0 +1,8 @@
+Module--> "mainpage" is the module name which is for the first main page that the users see when he 
+enters the website.
+
+Components:-- Its has three components in it.
+
+    1 "body" --->  Responsible for the main body of the page
+    2 "content" ---> Responsibe for the text desplayed in the body
+    3 "nav-bar" ---> Responsible for navigation bar stuffs
