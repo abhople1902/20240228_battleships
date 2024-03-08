@@ -1,0 +1,14 @@
+.text-on-image {
+    position: absolute;
+    top: 60%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    color: rgb(248, 244, 244);
+    font-size: 24px;
+    text-align: left;
+}
+
+.image img {
+    margin-left: 200%;
+    width: 100px;
+}
