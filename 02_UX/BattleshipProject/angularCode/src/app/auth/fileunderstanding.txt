@@ -1,0 +1,7 @@
+we have two components main-body and the navbar and two modules
+
+two modules name- input-login and input-register
+
+input-login have components  singin 
+
+input-register have components register

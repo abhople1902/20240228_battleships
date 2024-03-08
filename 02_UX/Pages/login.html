@@ -230,12 +230,12 @@
         </div>
     </div>
     <div class="main-body-container">
-        <form class="form" autocomplete="off">
+        <form class="form" autocomplete="off" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
             <div class="control">
                 <h1>Sign In</h1>
             </div>
             <div class="control block-cube block-input">
-                <input name="username" type="text" placeholder="Username">
+                <input name="username" type="text" placeholder="Username" required ngModel #username="ngModel">
                 <div class="bg-top">
                     <div class="bg-inner"></div>
                 </div>
@@ -247,7 +247,7 @@
                 </div>
             </div>
             <div class="control block-cube block-input">
-                <input name="password" type="password" placeholder="Password">
+                <input name="password" type="password" placeholder="Password" required ngModel #password="ngModel">
                 <div class="bg-top">
                     <div class="bg-inner"></div>
                 </div>
@@ -258,7 +258,7 @@
                     <div class="bg-inner"></div>
                 </div>
             </div>
-            <button class="btn block-cube block-cube-hover" type="button">
+            <button class="btn block-cube block-cube-hover" type="submit" [disabled]="!loginForm.valid">
                 <div class="bg-top">
                     <div class="bg-inner"></div>
                 </div>
@@ -271,6 +271,7 @@
                 <div class="text">Log In</div>
             </button>
         </form>
+        
         <div class="image-right">
             <img src="loginbg.jpg" alt="Your Image" class="image">
         </div> 
