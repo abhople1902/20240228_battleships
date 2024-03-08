@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SigninComponent } from '../signin/signin.component';
+import { SigninComponent } from '../input-login/signin/signin.component';
 
 @Component({
   selector: 'app-main-body',
