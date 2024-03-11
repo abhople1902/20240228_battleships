@@ -55,6 +55,12 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Default route for handling undefined routes
+router.use((req, res) => {
+  res.status(404).send('<h1>404 Page Not Found</h1>');
+});
+
+
 module.exports = router;
 
 
