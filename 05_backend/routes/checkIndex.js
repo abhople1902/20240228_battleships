@@ -116,3 +116,8 @@ router.get('/user-stats/:userId', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+// Default route for handling undefined routes
+router.use((req, res) => {
+  res.status(404).send('<h1>404 Page Not Found</h1>');
+});
