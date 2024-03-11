@@ -4,6 +4,7 @@ import { RegiterComponent } from './auth/input-register/regiter/regiter.componen
 import { GridComponent } from './maingame/grid/grid.component';
 import { PlacerComponent } from './maingame/placer/placer.component';
 import { NotfoundpageComponent } from './notfound/notfoundpage/notfoundpage.component';
+import { ProfilemainComponent } from './profilepage/profilemain/profilemain.component';
 
 export const routes: Routes = [
 // Routing part for the SigninComponent AND RegiterComponent
@@ -11,5 +12,6 @@ export const routes: Routes = [
     {path: 'register', component: RegiterComponent},
     {path: 'gamestart', component: GridComponent},
     {path: 'shipplacer', component: PlacerComponent},
-    { path: '**', component: NotfoundpageComponent }
+    {path: 'profile', component: ProfilemainComponent},
+    {path: '**', component: NotfoundpageComponent }
 ];
