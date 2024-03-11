@@ -1,18 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const Game = require('../models/Game');
-
+// this is the post api for the ship
 router.post('/ships', async (req, res) => {
   try {
-    const { gameId, playertype, playerID, position, shipType } = req.body;
 
+    const { gameId, playertype, playerID, position, shipType } = req.body;
     const gaming = await Game.findOne({ gameId: gameId });
     const typeOfPlayer = playertype
+    // if the playerType is not found
     if (!typeOfPlayer) {
       return res.status(404).json({ success: false, message: 'Player not found' });
     }
     // Updating the placements array with the clicked index
-    
+    // if the playerType is Human
     if(typeOfPlayer === 'Human'){
       // const shipPlacements = gaming.placementsPlayer1
       const placement = {
@@ -21,7 +22,9 @@ router.post('/ships', async (req, res) => {
         shipType
       }
       gaming.placementsPlayer1.push(placement);
-    } else {
+    } 
+    // if the playerType is bot
+    else {
       const placement = {
         playerID,
         shipPlacements: position,
