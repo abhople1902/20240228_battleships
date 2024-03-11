@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-grid',
+  selector: 'app-placer',
   standalone: true,
   imports: [],
-  templateUrl: './grid.component.html',
-  styleUrl: './grid.component.css'
+  templateUrl: './placer.component.html',
+  styleUrl: './placer.component.css'
 })
-export class GridComponent {
+export class PlacerComponent {
   ngOnInit(): void{
     document.addEventListener('DOMContentLoaded', function() {
       const gridContainer1 = document.getElementById('grid-container-1');
-      const gridContainer2 = document.getElementById('grid-container-2');
   
       for (let row = 1; row <= 8; row++) {
           for (let col = 1; col <= 8; col++) {
@@ -25,21 +24,8 @@ export class GridComponent {
                   alert(`Index: ${row}, ${col}`);
               };
   
-              const box2 = document.createElement('div');
-              box2.classList.add('box');
-  
-              const button2 = document.createElement('button');
-              button2.classList.add('button');
-              button2.textContent = `${row}, ${col}`;
-              button2.onclick = function() {
-                  alert(`Index: ${row}, ${col}`);
-              };
-  
               box1.appendChild(button1);
               gridContainer1?.appendChild(box1)
-  
-              box2.appendChild(button2);
-              gridContainer2?.appendChild(box2);
           }
       }
   });
