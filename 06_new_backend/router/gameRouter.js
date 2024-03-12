@@ -1,248 +1,160 @@
-
 const express = require("express");
 const router = express.Router();
-const sellerController = require("../controllers/sellerController");
+const gameController = require("../controllers/gameController");
 const { verifyJwt, getUserMiddleware } = require("../dependencies/jwtHelpers");
 
-
 /**
  * @swagger
- * /createGame:
+ * /start:
  *   post:
- *     summary: Create a new Game
- *     description: Create a new product or add products in the e-commerce system.
+ *     summary: Create a New Game
+ *     description: Creates a new entry in the database and returns the game ID.
  *     tags:
- *       - Sellers
+ *     - Game
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               data:
- *                 type: object
- *                 properties:
- *                   title:
- *                     type: string
- *                     description: Name of the product.
- *                   description:
- *                     type: string
- *                     description: Description of the product.
- *                   trending:
- *                     type: boolean
- *                     description: Indicates if the product is trending.
- *                   stock:
- *                     type: number
- *                     description: Available stock.
- *                   thumbnailUrl:
- *                     type: string
- *                     description: URL of the product's thumbnail.
- *                   images:
- *                     type: array
- *                     items:
- *                       type: string
- *                     description: Array of URLs for product images.
- *                   seller_id:
- *                     type: string
- *                     description: ID of the seller.
- *                   category:
- *                     type: string
- *                     description: Product category.
- *                   price:
- *                     type: number
- *                     description: The price of the product.
- *                   discountPrice:
- *                     type: number
- *                     description: The discounted price of the product.
- *                   reviews:
- *                     type: string
- *                     description: ID of the review associated with the product.
- *                   ratings:
- *                     type: array
- *                     description: The product's rating.
- *                   
- *     responses:
- *       '200':
- *         description: Successfully created product
- *         content:
- *           application/json:
- *             example:
- *               product:
- *                 title: "Smartphone X"
- *                 description: "A powerful and feature-rich smartphone."
- *                 trending: true
- *                 stock: 100
- *                 thumbnailUrl: "https://example.com/thumbnail.jpg"
- *                 images:
- *                   - "https://example.com/image1.jpg"
- *                   - "https://example.com/image2.jpg"
- *                 seller_id: "123456789012345678901234"
- *                 category: "Electronics"
- *                 price: 499.99
- *                 discountPrice: 399.99
- *                 reviews: []
- *                 ratings: 4.5
- *               createdAt: 2024-03-15T12:00:00Z
- *       '400':
- *         description: Invalid input. Check the request body for errors.
- *         content:
- *           application/json:
- *             example:
- *               message: "Invalid input"
- *       '500':
- *         description: Internal server error
- *         content:
- *           application/json:
- *             example:
- *               message: "Internal server error"
  */
-
-
-
-
-router.post("/product", verifyJwt, getUserMiddleware, sellerController.createProduct);
-
-
+router.post("/start", verifyJwt, getUserMiddleware, gameController.createGame);
 
 /**
  * @swagger
- * /updateProduct:
- *   put:
- *     summary: Update a product
- *     description: Update an existing product in the e-commerce system.
- *     tags:
- *       - Sellers
+ * /api/check-ship:
+ *   post:
+ *     summary: Check if the index is already stored in the opponent's user or not.
+ *     description: Check if the index is already stored in the opponent's user or not.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               id:
- *                 type: string
- *                 description: ID of the product to be updated.
- *               title:
- *                 type: string
- *                 description: New name of the product.
- *               description:
- *                 type: string
- *                 description: New description of the product.
- *               stock:
- *                 type: number
- *                 description: New available stock.
- *               thumbnailUrl:
- *                 type: string
- *                 description: New URL of the product's thumbnail.
- *               images:
- *                 type: array
- *                 items:
+ *             $ref: '#/components/schemas/ShipPlacementRequest'
+ *     responses:
+ *       '200':
+ *         description: Ships placements saved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Indicates if the operation was successful.
+ *                   example: true
+ *                 message:
  *                   type: string
- *                 description: New array of URLs for product images.
- *               category:
- *                 type: string
- *                 description: New product category.
- *               price:
- *                 type: number
- *                 description: New price of the product.
- *               discountPrice:
- *                 type: number
- *                 description: New discounted price of the product.
- *     responses:
- *       '200':
- *         description: Successfully updated product
- *         content:
- *           application/json:
- *             example:
- *               product:
- *                 title: "Updated Smartphone X"
- *                 description: "An updated and feature-rich smartphone."
- *                 stock: 150
- *                 thumbnailUrl: "https://example.com/updated-thumbnail.jpg"
- *                 images:
- *                   - "https://example.com/updated-image1.jpg"
- *                   - "https://example.com/updated-image2.jpg"
- *                 category: "Updated Electronics"
- *                 price: 599.99
- *                 discountPrice: 499.99
- *               updatedAt: "2024-03-16T12:00:00Z"
- *       '400':
- *         description: Invalid input. Check the request body for errors.
- *         content:
- *           application/json:
- *             example:
- *               message: "Invalid input"
- *       '401':
- *         description: Unauthorized. User is not the seller of this product.
- *         content:
- *           application/json:
- *             example:
- *               message: "Unauthorized for this product"
+ *                   description: A message indicating the result of the operation.
+ *                   example: Ships placements saved successfully.
  *       '404':
- *         description: Product not found.
+ *         description: Player not found.
  *         content:
  *           application/json:
- *             example:
- *               message: "Product not found"
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Indicates if the operation was successful.
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   description: A message indicating the reason for the failure.
+ *                   example: Player not found.
  *       '500':
- *         description: Internal server error
+ *         description: Internal server error.
  *         content:
  *           application/json:
- *             example:
- *               message: "Internal server error"
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Indicates if the operation was successful.
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   description: A message indicating the reason for the failure.
+ *                   example: Internal server error.
  */
+router.post("/check-ship", verifyJwt, getUserMiddleware, gameController.checkShipPlacement)
 
-router.put("/product", verifyJwt, getUserMiddleware, sellerController.updateProduct);
-
-/**
+ /**
  * @swagger
- * /deleteProduct:
- *   delete:
- *     summary: Delete a product
- *     description: Delete an existing product from the e-commerce system.
- *     tags:
- *       - Sellers
+ * /place-ship:
+ *   post:
+ *     summary: Save the ship placements
+ *     description: Save the ship placements for the game
+ *     tags: [Ships]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               id:
- *                 type: string
- *                 description: ID of the product to be deleted.
+ *             $ref: '#/components/schemas/ShipPlacementRequest'
  *     responses:
  *       '200':
- *         description: Successfully deleted product
+ *         description: Ships placements saved successfully
  *         content:
  *           application/json:
- *             example:
- *               message: "Product deleted"
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Indicates if the operation was successful.
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   description: A message indicating the result of the operation.
+ *                   example: Ships placements saved successfully.
+ *       '400':
+ *         description: Invalid input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Indicates if the operation was successful.
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   description: A message indicating the reason for the failure.
+ *                   example: Invalid input.
  *       '401':
- *         description: Unauthorized. User is not the seller of this product.
+ *         description: Game not found
  *         content:
  *           application/json:
- *             example:
- *               message: "Unauthorized for this product"
- *       '404':
- *         description: Product not found.
- *         content:
- *           application/json:
- *             example:
- *               message: "Product not found"
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Indicates if the operation was successful.
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   description: A message indicating the reason for the failure.
+ *                   example: Game not found.
  *       '500':
  *         description: Internal server error
  *         content:
  *           application/json:
- *             example:
- *               message: "Internal server error"
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Indicates if the operation was successful.
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   description: A message indicating the reason for the failure.
+ *                   example: Internal server error.
  */
-
-
-router.delete("/product", verifyJwt, getUserMiddleware, sellerController.deleteProduct);
-
-router.post("/dashboard", verifyJwt, getUserMiddleware, sellerController.getDashboard);
+router.post("/place-ship",verifyJwt,getUserMiddleware,gameController. saveShipPlacements)
 
 module.exports = router;
