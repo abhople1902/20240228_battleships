@@ -1,107 +1,23 @@
-
 const express = require("express");
 const router = express.Router();
-const sellerController = require("../controllers/sellerController");
+const gameController = require("../controllers/gameController");
 const { verifyJwt, getUserMiddleware } = require("../dependencies/jwtHelpers");
-
 
 /**
  * @swagger
- * /createGame:
+ * /start:
  *   post:
- *     summary: Create a new Game
- *     description: Create a new product or add products in the e-commerce system.
+ *     summary: Create a New Game
+ *     description: Creates a new entry in the database and returns the game ID.
  *     tags:
- *       - Sellers
+     *       - Game
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               data:
- *                 type: object
- *                 properties:
- *                   title:
- *                     type: string
- *                     description: Name of the product.
- *                   description:
- *                     type: string
- *                     description: Description of the product.
- *                   trending:
- *                     type: boolean
- *                     description: Indicates if the product is trending.
- *                   stock:
- *                     type: number
- *                     description: Available stock.
- *                   thumbnailUrl:
- *                     type: string
- *                     description: URL of the product's thumbnail.
- *                   images:
- *                     type: array
- *                     items:
- *                       type: string
- *                     description: Array of URLs for product images.
- *                   seller_id:
- *                     type: string
- *                     description: ID of the seller.
- *                   category:
- *                     type: string
- *                     description: Product category.
- *                   price:
- *                     type: number
- *                     description: The price of the product.
- *                   discountPrice:
- *                     type: number
- *                     description: The discounted price of the product.
- *                   reviews:
- *                     type: string
- *                     description: ID of the review associated with the product.
- *                   ratings:
- *                     type: array
- *                     description: The product's rating.
- *                   
- *     responses:
- *       '200':
- *         description: Successfully created product
- *         content:
- *           application/json:
- *             example:
- *               product:
- *                 title: "Smartphone X"
- *                 description: "A powerful and feature-rich smartphone."
- *                 trending: true
- *                 stock: 100
- *                 thumbnailUrl: "https://example.com/thumbnail.jpg"
- *                 images:
- *                   - "https://example.com/image1.jpg"
- *                   - "https://example.com/image2.jpg"
- *                 seller_id: "123456789012345678901234"
- *                 category: "Electronics"
- *                 price: 499.99
- *                 discountPrice: 399.99
- *                 reviews: []
- *                 ratings: 4.5
- *               createdAt: 2024-03-15T12:00:00Z
- *       '400':
- *         description: Invalid input. Check the request body for errors.
- *         content:
- *           application/json:
- *             example:
- *               message: "Invalid input"
- *       '500':
- *         description: Internal server error
- *         content:
- *           application/json:
- *             example:
- *               message: "Internal server error"
  */
-
-
-
-
-router.post("/product", verifyJwt, getUserMiddleware, sellerController.createProduct);
+router.post("/start", verifyJwt, getUserMiddleware, gameController.createGame);
 
 
 
@@ -192,8 +108,7 @@ router.post("/product", verifyJwt, getUserMiddleware, sellerController.createPro
  *             example:
  *               message: "Internal server error"
  */
-
-router.put("/product", verifyJwt, getUserMiddleware, sellerController.updateProduct);
+router.put("/product", verifyJwt, getUserMiddleware, gameController.updateProduct);
 
 /**
  * @swagger
@@ -239,10 +154,8 @@ router.put("/product", verifyJwt, getUserMiddleware, sellerController.updateProd
  *             example:
  *               message: "Internal server error"
  */
+router.delete("/product", verifyJwt, getUserMiddleware, gameController.deleteProduct);
 
-
-router.delete("/product", verifyJwt, getUserMiddleware, sellerController.deleteProduct);
-
-router.post("/dashboard", verifyJwt, getUserMiddleware, sellerController.getDashboard);
+router.post("/dashboard", verifyJwt, getUserMiddleware, gameController.getDashboard);
 
 module.exports = router;
