@@ -14,9 +14,11 @@ const userRouter = require("./router/userRouter");
 const app = express();
 app.use(bodyParser.json());
 
+
 // Swagger
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+
 
 // Routes
 // Authentication Router
@@ -40,33 +42,45 @@ startServerAndDatabase();
 // Swagger Configurations
 const swaggerOptions = {
   swaggerDefinition: {
-    openapi: '3.0.0',
+    openapi: "3.0.0",
     info: {
-      title: 'Express API for your project',
-      version: '1.0.0',
-      description: 'Description of your API',
+      title: "Express API for your project",
+      version: "1.0.0",
+      description: "Description of your API",
       license: {
-        name: 'MIT',
-        url: 'https://opensource.org/licenses/MIT',
+        name: "MIT",
+        url: "https://opensource.org/licenses/MIT",
       },
       contact: {
-        name: 'Your Name',
-        url: 'https://yourwebsite.com',
-        email: 'your@email.com',
+        name: "Your Name",
+        url: "https://yourwebsite.com",
+        email: "your@email.com",
       },
     },
     servers: [
       {
-        url: 'http://localhost:3000',
-        description: 'Development server',
+        url: "http://localhost:3000",
+        description: "Development server",
+      },
+    ],
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT", // Optional, but good to specify if using JWTs
+        },
+      },
+    },
+    security: [
+      {
+        BearerAuth: [],
       },
     ],
   },
-  // Specify the path to your API routes
-  apis: ['./router/*.js'],
+  apis: ["./router/*.js"], // Specify the path to your API routes
 };
-
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
-console.log('Swagger UI setup complete');
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+console.log("Swagger UI setup complete");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
