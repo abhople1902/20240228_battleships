@@ -7,21 +7,25 @@ require("dotenv").config();
 const { connectToDatabase } = require("./database/db");
 // Importing Internal Routers
 const authRouter = require("./router/authRouter");
-const sellerRouter = require("./router/gameRouter");
+const gameRouter = require("./router/gameRouter");
 const userRouter = require("./router/userRouter");
 
 // Setting up the app
 const app = express();
 app.use(bodyParser.json());
 
-const swaggerJSDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
+
+// Swagger
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
+
 // Routes
 // Authentication Router
 app.use("/auth", authRouter);
 
-// Seller Router
-app.use("/seller", sellerRouter);
+// Game Router
+app.use("/game", gameRouter);
 
 // User Router
 app.use("/user", userRouter);
