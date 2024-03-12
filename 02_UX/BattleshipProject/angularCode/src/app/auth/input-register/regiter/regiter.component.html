@@ -1,68 +1,154 @@
+<form
+  class="form"
+  [formGroup]="signupForm"
+  (ngSubmit)="onSubmit()"
+  autocomplete="off"
+  action="registration_endpoint"
+  method="POST"
+>
+  <div class="control">
+    <h1>Sign Up</h1>
+    <!-- Heading for sign up -->
+  </div>
+  <div class="control block-cube block-input">
+    <!-- username section -->
+    <input
+      name="username"
+      type="text"
+      placeholder="Username"
+      formControlName="username"
+      required
+    />
 
-<form class="form" autocomplete="off" action="registration_endpoint" method="POST">
-    <div class="control">
-        <h1>Sign Up</h1><!-- Heading for sign up -->
+    <!-- input usename -->
 
+    <!-- color part for the input box -->
+    <div class="bg-top">
+      <div class="bg-inner"></div>
     </div>
-    <div class="control block-cube block-input">
-        <!-- username section -->
-        <input name="username" type="text" placeholder="Username">
-        <!-- input usename -->
-
-  <!-- color part for the input box -->
-        <div class="bg-top">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg-right">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg">
-            <div class="bg-inner"></div>
-        </div>
+    <div class="bg-right">
+      <div class="bg-inner"></div>
     </div>
-    <!-- email section -->
-    <div class="control block-cube block-input">
-        <input name="email" type="email" placeholder="Email">
-        <!-- input email -->
-
-<!-- color part for the input box -->    
-        <div class="bg-top">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg-right">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg">
-            <div class="bg-inner"></div>
-        </div>
+    <div class="bg">
+      <div class="bg-inner"></div>
     </div>
-    <!-- password section -->
-    <div class="control block-cube block-input">
-        <input name="password" type="password" placeholder="Password">
-        <!-- input password -->
+  </div>
 
-        <!-- color part for the input box -->
-        <div class="bg-top">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg-right">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg">
-            <div class="bg-inner"></div>
-        </div>
+  <div
+    *ngIf="
+      signupForm.get('username')?.invalid &&
+      (signupForm.get('username')?.dirty || signupForm.get('username')?.touched)
+    "
+    class="error-message"
+  >
+    <div *ngIf="signupForm.get('username')?.errors?.['required']">
+      User name is required
     </div>
-    <!-- button section -->
-    <button class="btn block-cube block-cube-hover" type="submit">
-        <div class="bg-top">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg-right">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="text">Sign Up</div>
-    </button>
+    <div *ngIf="signupForm.get('username')?.errors?.['minlength']">
+      User name must be at least 4 characters
+    </div>
+    <div *ngIf="signupForm.get('username')?.errors?.['maxlength']">
+      User name must not exceed 20 characters
+    </div>
+    <div *ngIf="signupForm.get('username')?.errors?.['invalidUsername']">
+      User name cannot start with an underscore
+    </div>
+  </div>
+  <!-- email section -->
+  <div class="control block-cube block-input">
+    <input
+      name="email"
+      type="email"
+      formControlName="email"
+      required
+      placeholder="Email"
+    />
+    <!-- input email -->
+
+    <!-- color part for the input box -->
+    <div class="bg-top">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="bg-right">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="bg">
+      <div class="bg-inner"></div>
+    </div>
+  </div>
+  <div
+    *ngIf="
+      signupForm.get('email')?.invalid &&
+      (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)
+    "
+    class="error-message"
+  >
+    <div *ngIf="signupForm.get('email')?.errors?.['required']">
+      Email is required
+    </div>
+    <div *ngIf="signupForm.get('email')?.errors?.['email']">
+      Invalid email address
+    </div>
+  </div>
+  <!-- password section -->
+  <div class="control block-cube block-input">
+    <input
+      name="password"
+      type="password"
+      formControlName="password"
+      required
+      placeholder="Password"
+    />
+    <!-- input password -->
+
+    <!-- color part for the input box -->
+    <div class="bg-top">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="bg-right">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="bg">
+      <div class="bg-inner"></div>
+    </div>
+  </div>
+  <div
+    *ngIf="
+      signupForm.get('password')?.invalid &&
+      (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)
+    "
+    class="error-message"
+  >
+    <div *ngIf="signupForm.get('password')?.errors?.['required']">
+      Password is required
+    </div>
+    <div *ngIf="signupForm.get('password')?.errors?.['minlength']">
+      Password must be at least 8 characters
+    </div>
+    <div *ngIf="signupForm.get('password')?.errors?.['maxlength']">
+      Password must not exceed 200 characters
+    </div>
+    <div *ngIf="signupForm.get('password')?.errors?.['invalidPassword']">
+      Password must contain at least one capital letter, one special character,
+      and no consecutive digits
+    </div>
+  </div>
+  <!-- button section -->
+  <button
+    class="btn block-cube block-cube-hover"
+    [disabled]="signupForm.invalid"
+    (click)="showAlert()"
+    type="submit"
+  >
+    <div class="bg-top">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="bg-right">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="bg">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="text">Sign Up</div>
+  </button>
 </form>
