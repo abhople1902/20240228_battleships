@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="grid-container" id="grid-container-1">
+    <div class="box" *ngFor="let cell of cells">
+      <button class="button" (click)="showIndex(cell)">
+        {{ cell.row }}, {{ cell.col }}
+      </button>
+    </div>
+  </div>
+
+  <button class="btn block-cube block-cube-hover" type="button" (click)="navigateToGame()">
+    <!-- color part for the input box -->
+    <div class="bg-top">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="bg-right">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="bg">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="text">Start the Game</div>
+  </button>
+</div>

@@ -1,0 +1,11 @@
+<div class="grid-container">
+  <div class="player-box" *ngFor="let cell of cells">
+    <button
+      class="button"
+      (click)="showIndex(cell)"
+      [disabled]="isButtonDisabled(cell.row, cell.col)"
+      [class.isAHit]="isAHit(cell.row, cell.col)"
+    >
+    </button>
+  </div>
+</div>
