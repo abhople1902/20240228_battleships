@@ -1,45 +1,100 @@
-<form class="form" autocomplete="off">
-    <div class="control">
-        <h1>Sign in</h1><!-- Heading element (could be used for form title) -->
+<form
+  class="form"
+  [formGroup]="signupForm"
+  (ngSubmit)="onSubmit()"
+  autocomplete="off"
+  action="registration_endpoint"
+  method="POST"
+>
+  <div class="control">
+    <h1>Sign In</h1>
+    <!-- Heading for sign up -->
+  </div>
+  <div class="control block-cube block-input">
+    <!-- username section -->
+    <input
+      name="username"
+      type="text"
+      placeholder="Username"
+      formControlName="username"
+      required
+    />
+
+    <!-- input usename -->
+
+    <!-- color part for the input box -->
+    <div class="bg-top">
+      <div class="bg-inner"></div>
     </div>
-    <div class="control block-cube block-input">
-        <input name="username" type="text" placeholder="Username"><!-- Username input field -->
-           <!-- color part for the input box -->
-        <div class="bg-top">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg-right">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg">
-            <div class="bg-inner"></div>
-        </div>
+    <div class="bg-right">
+      <div class="bg-inner"></div>
     </div>
-    <div class="control block-cube block-input">
-        <input name="password" type="password" placeholder="Password"><!-- Password input field -->
-           <!-- color part for the input box -->
-        <div class="bg-top"><!-- Top background of input -->
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg-right">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg">
-            <div class="bg-inner"></div>
-        </div>
+    <div class="bg">
+      <div class="bg-inner"></div>
     </div>
-    <!--  button section for the sign in -->
-    <button class="btn block-cube block-cube-hover" type="button">
-            <!-- color part for the input box -->
-        <div class="bg-top">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg-right">  
-            <div class="bg-inner"></div>
-        </div>
-        <div class="bg">
-            <div class="bg-inner"></div>
-        </div>
-        <div class="text">Log In</div>
-    </button>
+  </div>
+
+  <div
+    *ngIf="
+      signupForm.get('username')?.invalid &&
+      (signupForm.get('username')?.dirty || signupForm.get('username')?.touched)
+    "
+    class="error-message"
+  >
+    <div *ngIf="signupForm.get('username')?.errors?.['required']">
+      User name is required
+    </div>
+  </div>
+
+  <!-- password section -->
+  <div class="control block-cube block-input">
+    <input
+      name="password"
+      type="password"
+      formControlName="password"
+      required
+      placeholder="Password"
+    />
+    <!-- input password -->
+
+    <!-- color part for the input box -->
+    <div class="bg-top">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="bg-right">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="bg">
+      <div class="bg-inner"></div>
+    </div>
+  </div>
+  <div
+    *ngIf="
+      signupForm.get('password')?.invalid &&
+      (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)
+    "
+    class="error-message"
+  >
+    <div *ngIf="signupForm.get('password')?.errors?.['required']">
+      Password is required
+    </div>
+  </div>
+  <!-- button section -->
+  <button
+    class="btn block-cube block-cube-hover"
+    [disabled]="signupForm.invalid"
+    (click)="showAlert()"
+    type="submit"
+  >
+    <div class="bg-top">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="bg-right">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="bg">
+      <div class="bg-inner"></div>
+    </div>
+    <div class="text">Log In</div>
+  </button>
 </form>

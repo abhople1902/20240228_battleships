@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import {
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-  FormsModule,
   ReactiveFormsModule,
+  FormGroup,
+  FormBuilder,
+  Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 // import { HttpClientModule } from '@angular/common/http';
@@ -26,6 +24,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     );
   }
 }
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-regiter',
@@ -37,19 +36,67 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-
+     CommonModule
 
   ],
-
   templateUrl: './regiter.component.html',
-  styleUrl: './regiter.component.css'
+  styleUrl: './regiter.component.css',
 })
-
 export class RegiterComponent {
-  constructor() { }
+  signupForm: FormGroup;
+  /**
+   * Constructor
+   *
+   * Initializes the signup form with validators for username, email, and password fields.
+   * @param formBuilder FormBuilder instance for creating the form group
+   */
+  constructor(private formBuilder: FormBuilder) {
+    this.signupForm = this.formBuilder.group({
+      username: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(20),
+          (control: { value: any }) => {
+            const usernameRegex = /^[a-zA-Z][a-zA-Z0-9]*$/; // Start with letter, followed by letters or numbers
+            const valid = usernameRegex.test(control.value); // Check if username follows the pattern
+            if (control.value.length > 0 && control.value.startsWith('_')) {
+              return { invalidUsername: true }; // Return error if the username starts with an underscore
+            }
+            return valid ? null : { invalidUsername: true }; // Return error if the username is not valid
+          },
+        ],
+      ],
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(200),
+          (control: { value: any }) => {
+            const passwordRegex =
+              /^(?=.*[A-Z])(?=.*[!@#$%^&()])(?=.*[0-9])(?!.*\s)(?!.*(\d)\1)/;
+            return passwordRegex.test(control.value)
+              ? null
+              : { invalidPassword: true };
+          },
+        ],
+      ],
+    });
+  }
 
-  onLogin(): void {
-    // Fetch call to your API
+  /**
+   * onSubmit
+   *
+   * Handles form submission.
+   * Logs success message if the form is valid, otherwise logs error message.
+   */
+  onSubmit() {
+    if (this.signupForm.valid) {
+      console.log('Form submitted successfully!');
+      // Fetch call to your API
     fetch('http://localhost:3000/auth/signup', {
       method: 'POST',
       headers: {
@@ -76,5 +123,19 @@ export class RegiterComponent {
         console.error('Login failed: ', error);
         // Handle login error
       });
+    } else {
+      console.log('Form is invalid. Please fix the errors.');
+    }
+  }
+
+  /**
+   * showAlert
+   *
+   * Displays an alert if the form is invalid.
+   */
+  showAlert() {
+    if (this.signupForm.invalid) {
+      alert('Please fill all the fields correctly.');
+    }
   }
 }
