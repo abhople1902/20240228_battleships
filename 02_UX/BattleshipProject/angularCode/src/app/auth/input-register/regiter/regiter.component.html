@@ -1,4 +1,4 @@
-<form class="form" autocomplete="off" action="registration_endpoint" method="POST">
+<form class="form" autocomplete="off" action="registration_endpoint" method="POST" >
     <!-- Sign Up Heading -->
     <div class="control">
         <h1>Sign Up</h1>
@@ -6,7 +6,7 @@
 
     <!-- Username Section -->
     <div class="control block-cube block-input">
-        <input name="username" type="text" placeholder="Username">
+        <input name="username" #usernameInput type="text" placeholder="Username">
         <!-- Background styles for input -->
         <div class="bg-top">
             <div class="bg-inner"></div>
@@ -21,7 +21,7 @@
 
     <!-- Email Section -->
     <div class="control block-cube block-input">
-        <input name="email" type="email" placeholder="Email">
+        <input name="email" #emailInput type="email" placeholder="Email">
         <!-- Background styles for input -->
         <div class="bg-top">
             <div class="bg-inner"></div>
@@ -36,7 +36,7 @@
 
     <!-- Password Section -->
     <div class="control block-cube block-input">
-        <input name="password" type="password" placeholder="Password">
+        <input name="password" #passwordInput type="password" placeholder="Password">
         <!-- Background styles for input -->
         <div class="bg-top">
             <div class="bg-inner"></div>
@@ -50,7 +50,7 @@
     </div>
 
     <!-- Sign Up Button -->
-    <button class="btn block-cube block-cube-hover" type="submit">
+    <button class="btn block-cube block-cube-hover" type="submit"  (click)="onLogin()" >
         <!-- Background styles for button -->
         <div class="bg-top">
             <div class="bg-inner"></div>

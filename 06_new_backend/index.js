@@ -2,6 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 require("dotenv").config();
+const cors = require("cors")
 
 // Database connection
 const { connectToDatabase } = require("./database/db");
@@ -13,7 +14,7 @@ const userRouter = require("./router/userRouter");
 // Setting up the app
 const app = express();
 app.use(bodyParser.json());
-
+app.use(cors());
 
 // Swagger
 const swaggerJSDoc = require('swagger-jsdoc');
