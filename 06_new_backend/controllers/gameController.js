@@ -1,50 +1,7 @@
 // Internal Imports
 const Game = require("../models/Game");
 
-/**
- * @swagger
- * /games:
- *   post:
- *     summary: Create a new game
- *     description: This endpoint allows you to create a new game
- *     consumes:
- *       - application/json
- *     produces:
- *       - application/json
- *     parameters:
- *       - in: body
- *         name: body
- *         description: Game object
- *         required: true
- *         schema:
- *           $ref: '#/definitions/Game'
- *     responses:
- *       200:
- *         description: Successful response
- *         schema:
- *           $ref: '#/definitions/GameId'
- *       500:
- *         description: Internal server error
- *         schema:
- *           $ref: '#/definitions/Error'
- * definitions:
- *   Game:
- *     type: object
- *     properties:
- *       # Define the properties of the Game object here
- *   GameId:
- *     type: object
- *     properties:
- *       gameId:
- *         type: string
- *         description: The ID of the newly created game
- *   Error:
- *     type: object
- *     properties:
- *       message:
- *         type: string
- *         description: Error message
- */
+/** Controller to create a new game */
 async function createGame(req, res) {
 
   try {

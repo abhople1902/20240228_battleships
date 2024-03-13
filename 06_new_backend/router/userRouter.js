@@ -1,11 +1,3 @@
-// /user - Gaurav
-// - GET /address
-// - POST /address
-// - PUT /address
-// - DELETE /address
-// - GET /
-// - PUT /
-
 // Express setup
 const express = require("express");
 const router = express.Router();

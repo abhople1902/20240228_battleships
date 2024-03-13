@@ -1,7 +1,3 @@
-// /auth
-// - /signin
-// - /signup
-
 // Setting up the express router
 const express = require("express");
 const router = express.Router();
