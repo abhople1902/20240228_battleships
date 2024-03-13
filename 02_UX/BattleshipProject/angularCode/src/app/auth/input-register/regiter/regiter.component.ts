@@ -30,6 +30,9 @@ import { CommonModule } from '@angular/common';
 })
 export class RegiterComponent {
   signupForm: FormGroup;
+  username: string = '';
+  password: string = '';
+  email: string = '';
   /**
    * Constructor
    *
@@ -89,9 +92,9 @@ export class RegiterComponent {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          username: 'keshav9282',
-          password: 'kasjkahsa',
-          email: 'abcd@gmail.net'
+          username: this.username,
+          password: this.password,
+          email: this.email
         })
       })
         .then(response => {

@@ -16,6 +16,10 @@ import { CommonModule } from '@angular/common';
 })
 export class SigninComponent {
   signupForm: FormGroup;
+  username: string = '';
+  password: string = '';
+  apiUrl: string = 'http://localhost:3000/auth/signin'; 
+
 
   /**
    * Constructor
@@ -26,7 +30,6 @@ export class SigninComponent {
   constructor(private formBuilder: FormBuilder) {
     this.signupForm = this.formBuilder.group({
       username: ['', [Validators.required]],
-
       password: ['', [Validators.required]],
     });
   }
@@ -38,10 +41,37 @@ export class SigninComponent {
    * Logs success message if the form is valid, otherwise logs error message.
    */
   onSubmit() {
-    if (this.signupForm.valid) {
+    if (this.username && this.password) {
       console.log('Form submitted successfully!');
+      // Make HTTP POST request using Fetch API
+      fetch(this.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: this.username,
+          password: this.password,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Handle successful login
+          console.log('Login successful:', data);
+          // Store token in localStorage or sessionStorage
+          localStorage.setItem('token', data.token); // Change 'token' to match your API response
+        })
+        .catch((error) => {
+          console.error('Login failed: ', error);
+          // Handle login error
+        });
     } else {
-      console.log('Form is invalid. Please fix the errors.');
+      console.log('Form is invalid. Please fill all fields.');
     }
   }
 
