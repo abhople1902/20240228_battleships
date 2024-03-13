@@ -1,0 +1,133 @@
+/* You can add global styles to this file, and also import other style files */
+/* *{margin: 0;padding: 0;} */
+
+html {
+    font-family: Arial, sans-serif;
+    background: conic-gradient(from 45deg, #7C05F2, #010626, #021859, #0B59BF, #30A8F2);
+    color: #fff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: monospace, serif;
+    letter-spacing: 0.05em;
+    min-height: 100%;
+    background-position: center;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    min-height: 100%;
+}
+
+h1 {
+    font-size: 23px;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #ebe1e1;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.nav-links {
+    display: flex;
+}
+
+.nav-links button {
+    background-color: #30A8F2;
+    border-radius: 5px;
+    color: #1c1414;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 8px 16px;
+    font-family: monospace;
+    font-size: 16px;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links button:hover {
+    background-color: #555;
+}
+
+/* Adjustments for container to hold both grids */
+.container {
+    display: flex; /* Change to flex layout */
+    justify-content: space-between; /* Space between the grids */
+    margin-top: 20px; /* Adjust margin-top as needed */
+}
+
+/* CSS for the first grid */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(8, 50px);
+    grid-auto-rows: 50px; 
+    gap: 1px; 
+    padding: 40px;
+}
+
+/* CSS for the second grid */
+.second-grid-container {
+    display: grid;
+    grid-template-columns: repeat(8, 50px);
+    grid-auto-rows: 50px; 
+    gap: 1px; 
+    padding: 40px;
+}
+
+/* Individual box styling */
+.box {
+    width: 100%;
+    height: 100%;
+    background-color: #1a58b6;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Button styling */
+.button {
+    border: black solid 2px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #4d94ff;
+} 
+
+
+
+
+
+
+
+@media (max-width: 942px)
+{
+    .container{
+        flex-direction: column;
+        align-items: center;
+    }
+    .body{
+        height: 100%;
+    }
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

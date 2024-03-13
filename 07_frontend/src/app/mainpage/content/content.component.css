@@ -1,0 +1,43 @@
+/* Styles for text overlay on an image */
+.text-on-image {
+    position: absolute; /* Position absolutely within its containing block */
+    top: 60%; /* Positioned 60% from the top of its containing block */
+    left: 30%; /* Positioned 30% from the left of its containing block */
+    transform: translate(-50%, -50%); /* Center the element horizontally and vertically */
+    color: rgb(248, 244, 244); /* Text color */
+    font-size: 24px; /* Font size */
+    text-align: left; /* Align text to the left */
+}
+
+/* Styles for an image within a container */
+.image img {
+    margin-left: 200%; /* Move the image 200% to the left (effectively hides it) */
+    width: 100px; /* Set width of the image */
+}
+
+/* Styles for the text on the image */
+.text-on-image h1 {
+    overflow: hidden; /* Hide overflowing content */
+    border-right: .15em solid orange; /* Add an animated typing cursor */
+    white-space: nowrap; /* Prevent wrapping of text */
+    margin: 0; /* Remove default margin */
+    letter-spacing: .15em; /* Adjust letter spacing */
+    animation: typing 3s steps(20) 1 forwards, /* Define typing animation */
+               wait 5s infinite; /* Define waiting animation */
+}
+
+/* Keyframes for typing animation */
+@keyframes typing {
+    from { width: 0 } /* Start with no width */
+    to { width: 100% } /* End with full width */
+}
+
+/* Keyframes for waiting animation */
+@keyframes wait {
+    0%, 100% { /* Initial and final states */
+        width: 100%; /* Maintain full width */
+    }
+    50% { /* Middle state */
+        width: 0; /* Reset width to create blinking effect */
+    }
+}
