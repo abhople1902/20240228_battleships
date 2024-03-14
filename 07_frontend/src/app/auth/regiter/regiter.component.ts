@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-regiter',
   standalone: true,
   imports: [
+
     HttpClientModule,
     FormsModule,
     MatFormFieldModule,
@@ -39,7 +40,7 @@ export class RegiterComponent {
    * Initializes the signup form with validators for username, email, and password fields.
    * @param formBuilder FormBuilder instance for creating the form group
    */
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,private  http:HttpClient) {
     this.signupForm = this.formBuilder.group({
       username: [
         '',
@@ -82,39 +83,56 @@ export class RegiterComponent {
    * Handles form submission.
    * Logs success message if the form is valid, otherwise logs error message.
    */
-  onSubmit() {
-    if (this.signupForm.valid) {
-      console.log('Form submitted successfully!');
-      // Fetch call to your API
-      fetch('http://localhost:3000/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: this.username,
-          password: this.password,
-          email: this.email
-        })
-      })
-        .then(response => {
-          console.log(response)
-          // if (!response.ok) {
-          //   throw new Error('Network response was not ok');
-          // }
-          // return response.json();
-        })
-        .then(data => {
-          console.log('Login successful:', data);
-          // Handle successful login response
-        })
-        .catch(error => {
-          console.error('Login failed: ', error);
-          // Handle login error
-        });
-    } else {
-      console.log('Form is invalid. Please fix the errors.');
-    }
+  // onSubmit() {
+  //   if (this.signupForm.valid) {
+  //     console.log('Form submitted successfully!');
+  //     // Fetch call to your API
+  //     fetch('http://localhost:3000/auth/signup', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({
+  //         username: this.username,
+  //         password: this.password,
+  //         email: this.email
+  //       })
+  //     })
+  //       .then(response => {
+  //         console.log(response)
+  //         // if (!response.ok) {
+  //         //   throw new Error('Network response was not ok');
+  //         // }
+  //         // return response.json();
+  //       })
+  //       .then(data => {
+  //         console.log('Login successful:', data);
+  //         // Handle successful login response
+  //       })
+  //       .catch(error => {
+  //         console.error('Login failed: ', error);
+  //         // Handle login error
+  //       });
+  //   } else {
+  //     console.log('Form is invalid. Please fix the errors.');
+  //   }
+  // }
+  onSubmit(){
+    const userData={
+      username:this.username,
+      email:this.email,
+      password:this.password,
+    }   
+    this.http.post('http://localhost:3000/auth/signup',userData).subscribe({
+      next: (response) => {
+        // Handle the response if needed
+        console.log('Signup successful', response);
+      },
+      error: (error) => {
+        // Handle any errors here
+        console.error('Signup failed', error);
+      }
+    });
   }
 
   /**
