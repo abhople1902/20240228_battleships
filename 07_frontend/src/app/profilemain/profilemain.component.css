@@ -1,118 +1,76 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../../assets/backgound_profile.jpeg')
+}
+
 .card {
+    width: 250px;
+    height: 300px;
     position: relative;
-    background-color: #333;
-    width: 350px;
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 30px;
-    border-radius: 30px;
-    box-shadow: 0 9px 38px rgb(0 0 0 / 30%), 0 5px 12px rgb(0 0 0 / 22%);
-    margin: 20px auto; /* Added margin for spacing */
-}
-.photo-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 200px;
-    height: 200px;
+    cursor: pointer;
+    perspective: 1000px;
+
 }
 
-.photo-container * {
-    position: absolute;
-}
-
-circle {
-    display: block;
-    fill: transparent;
-    stroke: #8649fc;
-    stroke-linecap: round;
-    stroke-dasharray: 600;
-    stroke-dashoffset: 175;
-    stroke-width: 7px;
-    transform-origin: 50% 50%;
-    transform: rotate(-90deg);
-    z-index: 2;
-}
-
-.img-box {
-    overflow: hidden;
-    width: 155px;
-    height: 155px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 5.5em;
-    color: #555;
-    box-shadow: 0 9px 38px rgb(0 0 0 / 30%), 0 5px 12px rgb(0 0 0 / 22%);
-}
-
-img {
+.card .content,
+.card .back {
     width: 100%;
-}
-
-h3 {
-    text-transform: capitalize;
-    color: #ccc;
-    font-size: 25px;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    font-weight: 500;
-}
-
-span {
-    font-size: 18px;
-    font-weight: 500;
-    color: #888;
-    text-transform: capitalize;
-    margin-bottom: 30px;
-}
-.box{
-    background-color: #333;
-}
-
-.box-container {
+    height: 100%;
+    background: rgba(255, 255, 255, 0.089);
+    backdrop-filter: blur(20px);
+    border: 1px solid white;
+    color: white;
     display: flex;
-    justify-content:
-     space-between;
-    width: 190px;
-}
-
-.box-container .box {
-    display: flex;
+    /* justify-content: center; */
+    align-items: center;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.055);
+    transition: all .4s;
+    transform-style: preserve-3d;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
-.box-container .box i {
-    width: 45px;
-    height: 45px;
-    background-color: #666;
-    border-radius: 50%;
-    display: flex;
+.card .content {
+    z-index: 2;
+    visibility: visible;
+    color: rgb(75, 215, 215);
+}
+
+
+.card .back {
+    z-index: 1;
+    transform: rotateY(180deg);
+    color: black;
+    visibility: hidden;
+    color: aquamarine;
+}
+
+.card:hover .content   {
+    color: rgb(209, 69, 69);
+    transform: rotateY(180deg);
+    visibility: hidden;
+    /* color: rgb(18, 234, 234); */
+}
+
+.card:hover .back  {
+    transform: rotateY(0deg);
+    color: #c538c7;
+    visibility: visible;
+}
+
+
+.card .content .text,
+.card .back .text {
     justify-content: center;
+    margin-top: 60px;
+    text-align: center;
     align-items: center;
-    font-size: 16px;
-    color: #ddd;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    padding: 10px; /* Add padding to create some space around the text */
+    border-radius: 10px; /* Add border radius for rounded corners */
 }
-
-.box-container .box span {
-    color: #ccc;
-
-
-    font-size: 21px;
-    font-weight: 600;
-}
-
-.box-container .box:first-of-type i {
-    background-color: rgba(79, 194, 247, 0.4);
-}
-
-.box-container .box:nth-of-type(2) i {
-    background-color: rgba(171, 71, 188, 0.4);
-}
-/* Remaining CSS rules for the profile card */

@@ -6,16 +6,23 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { response } from 'express';
 
 @Component({
   selector: 'app-signin',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,HttpClientModule],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.css',
 })
 export class SigninComponent {
   signupForm: FormGroup;
+  username: string = '';
+  password: string = '';
+  // apiUrl: string = 'http://localhost:3000/auth/signin'; 
+
 
   /**
    * Constructor
@@ -23,12 +30,12 @@ export class SigninComponent {
    * Initializes the signup form with validators for username, email, and password fields.
    * @param formBuilder FormBuilder instance for creating the form group
    */
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,private http:HttpClient) {
     this.signupForm = this.formBuilder.group({
       username: ['', [Validators.required]],
-
       password: ['', [Validators.required]],
     });
+
   }
 
   /**
@@ -37,13 +44,63 @@ export class SigninComponent {
    * Handles form submission.
    * Logs success message if the form is valid, otherwise logs error message.
    */
-  onSubmit() {
-    if (this.signupForm.valid) {
-      console.log('Form submitted successfully!');
-    } else {
-      console.log('Form is invalid. Please fix the errors.');
+  onSubmit(){
+    console.log("submit button is press")
+    console.log('Form submitted successfully!');
+    const userData={
+      username:this.username,
+      password:this.password
     }
+    this.http.post <any>('http://localhost:3000/auth/signin',userData).subscribe({
+      next:async (response)=>{
+        console.log("Login Successful",response)
+        // Store token in localStorage or sessionStorage
+        // const data = await response.json()
+        const token = response.token;
+        localStorage.setItem('token', token );// Change 'token' to match your API response
+      },
+      error:(error)=>{
+
+        console.error('Login Fail',error)
+      }
+
+
+    })
   }
+  // onSubmit() {
+  //   if (this.username && this.password) {
+  //     console.log('Form submitted successfully!');
+  //     // Make HTTP POST request using Fetch API
+  //     fetch(this.apiUrl, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         username: this.username,
+  //         password: this.password,
+  //       }),
+  //     })
+  //       .then((response) => {
+  //         if (!response.ok) {
+  //           throw new Error('Network response was not ok');
+  //         }
+  //         return response.json();
+  //       })
+  //       .then((data) => {
+  //         // Handle successful login
+  //         console.log('Login successful:', data);
+  //         // Store token in localStorage or sessionStorage
+  //         localStorage.setItem('token', data.token); // Change 'token' to match your API response
+  //       })
+  //       .catch((error) => {
+  //         console.error('Login failed: ', error);
+  //         // Handle login error
+  //       });
+  //   } else {
+  //     console.log('Form is invalid. Please fill all fields.');
+  //   }
+  // }
 
   /**
    * showAlert
