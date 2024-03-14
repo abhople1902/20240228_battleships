@@ -3,7 +3,7 @@
 
 html {
     font-family: Arial, sans-serif;
-    background: conic-gradient(from 45deg, #7C05F2, #010626, #021859, #0B59BF, #30A8F2);
+    background-image: url(assets/wave-haikei.png);
     color: #fff;
     background-size: cover;
     background-repeat: no-repeat;

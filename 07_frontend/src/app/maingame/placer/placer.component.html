@@ -1,12 +1,14 @@
-<div class="container">
-  <div class="grid-container" id="grid-container-1">
-    <div class="box" *ngFor="let cell of cells">
-      <button class="button" (click)="showIndex(cell)">
-        {{ cell.row }}, {{ cell.col }}
-      </button>
+<!-- Grid represents the ship placements screen -->
+<div class="ship-place-container">
+  <h1>
+    Place your ships!
+    {{countPlacedShips()}} / {{5}}
+  </h1>
+  <div class="game">
+    <div class="box" *ngFor="let cell of cells" [class.isAShip]="shipPlacements[cell.row-1][cell.col-1]"
+      (click)="handleClick(cell)">
     </div>
   </div>
-
   <button class="btn block-cube block-cube-hover" type="button" (click)="navigateToGame()">
     <!-- color part for the input box -->
     <div class="bg-top">
