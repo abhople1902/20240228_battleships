@@ -9,15 +9,24 @@ import { GridComponent } from '../grid/grid.component';
   styleUrl: './main-game-page.component.css',
 })
 export class MainGamePageComponent {
+  readonly humanScore = 3;
+  readonly computerScore = 2;
+  readonly totalScore = 5;
 
-  readonly humanScore = 3
-  readonly computerScore = 2
-  readonly totalScore = 5
+  temporaryIndices = new Set<{ row: number; col: number }>();
 
   currentTurn: 'Human' | 'Computer' = 'Human';
 
   constructor() {
     // Hardcoded indices for the ship
+    this.temporaryIndices.add({ row: 1, col: 1 });
+    this.temporaryIndices.add({ row: 2, col: 2 });
+    this.temporaryIndices.add({ row: 3, col: 3 });
+    this.temporaryIndices.add({ row: 4, col: 4 });
+    this.temporaryIndices.add({ row: 5, col: 5 });
+    this.temporaryIndices.add({ row: 6, col: 6 });
+    this.temporaryIndices.add({ row: 7, col: 7 });
+    this.temporaryIndices.add({ row: 8, col: 8 });
   }
 
   @ViewChildren(GridComponent) gridComponents!: QueryList<GridComponent>;
@@ -26,38 +35,36 @@ export class MainGamePageComponent {
     // console.log(`Index clicked in parent component: ${cell.row}, ${cell.col}`);
     // alert(`Index: ${cell.row}, ${cell.col}`);
 
-    let shipIsHit = false
+    let shipIsHit = false;
 
     // Logic for checking the index
     if (!this.checkIndex(cell.row, cell.col)) {
       alert('Not a ship.');
-      shipIsHit = false
+      shipIsHit = false;
     } else {
       alert('Ship found!');
-      shipIsHit = true
+      shipIsHit = true;
     }
 
     // Logic for changing turns
     if (this.currentTurn === 'Human') {
       // Get the Grid Component for Human
-      const gridComponent = this.gridComponents.toArray()[1]
+      const gridComponent = this.gridComponents.toArray()[1];
 
       // Handle it being a hit
       if (shipIsHit) {
-        gridComponent.makeShipHit(cell)
-      }
-      else {
+        gridComponent.makeShipHit(cell);
+      } else {
         this.currentTurn = 'Computer';
         this.makeBotMove();
       }
     } else {
-      const gridComponent = this.gridComponents.toArray()[0]
+      const gridComponent = this.gridComponents.toArray()[0];
 
       // Handle it being a hit
       if (shipIsHit) {
-        gridComponent.makeShipHit(cell)
-      }
-      else {
+        gridComponent.makeShipHit(cell);
+      } else {
         this.currentTurn = 'Human';
       }
     }
@@ -84,7 +91,10 @@ export class MainGamePageComponent {
 
   /** Placeholder for the API call. */
   checkIndex(row: number, col: number) {
-    
-    return true;
+    const exists = [...this.temporaryIndices].some(
+      (obj) => obj.row === row && obj.col === col
+    );
+
+    return exists;
   }
 }
