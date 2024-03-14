@@ -2,6 +2,7 @@
     background: conic-gradient(from 45deg, #7C05F2, #010626, #021859, #0B59BF, #30A8F2);
 }*, ::after, ::before {
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 body {
@@ -15,10 +16,6 @@ body {
     letter-spacing: 0.05em;
     margin: 0;
     padding: 0;
-    width: 100%;
-    margin: auto;
-    position: relative;
-    height: 100vh;
 }
 /* Heading font size */
 h1 {
@@ -206,9 +203,6 @@ input {
 }
 .main-body-container {
     /* main body container style */
-    display: flex;
-    align-items: center;
-    /* justify-content: space-between; */
     height: 100%;
     width: 100%;
 }

@@ -9,6 +9,11 @@ import { GridComponent } from '../grid/grid.component';
   styleUrl: './main-game-page.component.css',
 })
 export class MainGamePageComponent {
+
+  readonly humanScore = 3
+  readonly computerScore = 2
+  readonly totalScore = 5
+
   currentTurn: 'Human' | 'Computer' = 'Human';
   temporaryIndices = new Set<{ row: number; col: number }>();
 
@@ -71,7 +76,6 @@ export class MainGamePageComponent {
       (obj) => obj.row === row && obj.col === col
     );
 
-    console.log(exists); // Output: true
     return exists;
   }
 }
