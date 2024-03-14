@@ -15,18 +15,9 @@ export class MainGamePageComponent {
   readonly totalScore = 5
 
   currentTurn: 'Human' | 'Computer' = 'Human';
-  temporaryIndices = new Set<{ row: number; col: number }>();
 
   constructor() {
     // Hardcoded indices for the ship
-    this.temporaryIndices.add({ row: 1, col: 1 });
-    this.temporaryIndices.add({ row: 2, col: 2 });
-    this.temporaryIndices.add({ row: 3, col: 3 });
-    this.temporaryIndices.add({ row: 4, col: 4 });
-    this.temporaryIndices.add({ row: 5, col: 5 });
-    this.temporaryIndices.add({ row: 6, col: 6 });
-    this.temporaryIndices.add({ row: 7, col: 7 });
-    this.temporaryIndices.add({ row: 8, col: 8 });
   }
 
   @ViewChildren(GridComponent) gridComponents!: QueryList<GridComponent>;
@@ -35,19 +26,40 @@ export class MainGamePageComponent {
     // console.log(`Index clicked in parent component: ${cell.row}, ${cell.col}`);
     // alert(`Index: ${cell.row}, ${cell.col}`);
 
+    let shipIsHit = false
+
     // Logic for checking the index
     if (!this.checkIndex(cell.row, cell.col)) {
       alert('Not a ship.');
+      shipIsHit = false
     } else {
       alert('Ship found!');
+      shipIsHit = true
     }
 
     // Logic for changing turns
     if (this.currentTurn === 'Human') {
-      this.currentTurn = 'Computer';
-      this.makeBotMove();
+      // Get the Grid Component for Human
+      const gridComponent = this.gridComponents.toArray()[1]
+
+      // Handle it being a hit
+      if (shipIsHit) {
+        gridComponent.makeShipHit(cell)
+      }
+      else {
+        this.currentTurn = 'Computer';
+        this.makeBotMove();
+      }
     } else {
-      this.currentTurn = 'Human';
+      const gridComponent = this.gridComponents.toArray()[0]
+
+      // Handle it being a hit
+      if (shipIsHit) {
+        gridComponent.makeShipHit(cell)
+      }
+      else {
+        this.currentTurn = 'Human';
+      }
     }
   }
 
@@ -59,23 +71,20 @@ export class MainGamePageComponent {
       const botGridComponent = this.gridComponents.toArray()[0];
 
       // Iteratively check for a move and make it if it's valid
-      // while (true) {
-      const row = Math.floor(Math.random() * 8) + 1;
-      const col = Math.floor(Math.random() * 8) + 1;
-      // if (!botGridComponent.isButtonDisabled(row, col)) {
-      botGridComponent.makeAMove(row, col);
-      //   break;
-      // }
-      // }
+      while (true) {
+        const row = Math.floor(Math.random() * 8) + 1;
+        const col = Math.floor(Math.random() * 8) + 1;
+        if (!botGridComponent.isButtonDisabled({ row, col })) {
+          botGridComponent.makeAMove(row, col);
+          break;
+        }
+      }
     }, 3000);
   }
 
   /** Placeholder for the API call. */
   checkIndex(row: number, col: number) {
-    const exists = [...this.temporaryIndices].some(
-      (obj) => obj.row === row && obj.col === col
-    );
-
-    return exists;
+    
+    return true;
   }
 }

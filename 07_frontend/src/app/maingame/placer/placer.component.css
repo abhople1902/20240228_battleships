@@ -1,56 +1,34 @@
-html {
-  font-family: Arial, sans-serif;
-  background: conic-gradient(from 45deg, #7C05F2, #010626, #021859, #0B59BF, #30A8F2);
-  color: #fff;
-  background-size: cover;
-  background-repeat: no-repeat;
-  font-family: monospace, serif;
-  letter-spacing: 0.05em;
-  min-height: 100%;
-  background-position: center;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  color: #fff;
-  min-height: 100%;
-}
-
-h1 {
-  font-size: 23px;
-}
-
-/* Adjustments for container to hold both grids */
-.container {
+/* Grid styling */
+.ship-place-container {
   display: flex;
-  /* Change to flex layout */
-  justify-content: space-between;
-  align-items: center;
-  /* Space between the grids */
-  margin-top: 20px;
-  /* Adjust margin-top as needed */
-}
-
-/* CSS for the first grid */
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(8, 50px);
-  grid-auto-rows: 50px;
-  gap: 1px;
-  padding: 40px;
-}
-
-/* Individual box styling */
-.box {
-  width: 100%;
-  height: 100%;
-  background-color: #1a58b6;
-  border-radius: 5px;
-  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.game {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  margin: 2rem;
+  max-width: min(32vw, 400px);
+}
+
+.box {
+  width: min(4vw, 50px);
+  height: min(4vw, 50px);
+  aspect-ratio: 1;
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid white;
+  transition: background-color 0.4s ease-in-out;
+}
+
+.box:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.isAShip {
+  background-color: #0066ff;
 }
 
 /* Button styling */
@@ -67,7 +45,7 @@ h1 {
 }
 
 .btn {
-  width: 100%;
+  width: 10%;
   display: block;
   padding: 14px 16px;
   background: transparent;
@@ -144,15 +122,4 @@ h1 {
 .text {
   position: relative;
   z-index: 2;
-}
-
-@media (max-width: 942px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .body {
-    height: 100%;
-  }
 }

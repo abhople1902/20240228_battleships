@@ -8,14 +8,16 @@ import {
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
-import { response } from 'express';
+import { AuthService } from '../../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule,HttpClientModule],
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.css',
+  providers: [AuthService]
 })
 export class SigninComponent {
   signupForm: FormGroup;
@@ -30,7 +32,12 @@ export class SigninComponent {
    * Initializes the signup form with validators for username, email, and password fields.
    * @param formBuilder FormBuilder instance for creating the form group
    */
-  constructor(private formBuilder: FormBuilder,private http:HttpClient) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.signupForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -44,24 +51,25 @@ export class SigninComponent {
    * Handles form submission.
    * Logs success message if the form is valid, otherwise logs error message.
    */
-  onSubmit(){
+  onSubmit() {
     console.log("submit button is press")
     console.log('Form submitted successfully!');
-    const userData={
-      username:this.username,
-      password:this.password
+    const userData = {
+      username: this.username,
+      password: this.password
     }
-    this.http.post <any>('http://localhost:3000/auth/signin',userData).subscribe({
-      next:async (response)=>{
-        console.log("Login Successful",response)
+    this.http.post<any>('http://localhost:3000/auth/signin', userData).subscribe({
+      next: async (response) => {
+        console.log("Login Successful", response)
         // Store token in localStorage or sessionStorage
         // const data = await response.json()
         const token = response.token;
-        localStorage.setItem('token', token );// Change 'token' to match your API response
+        this.authService.setToken(token);
+        this.router.navigate(['/shipplacer'])
       },
-      error:(error)=>{
+      error: (error) => {
 
-        console.error('Login Fail',error)
+        console.error('Login Fail', error)
       }
 
 

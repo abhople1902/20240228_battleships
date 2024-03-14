@@ -1,21 +1,6 @@
-<!-- <div class="grid-container">
-  <div class="player-box" *ngFor="let cell of cells">
-    <button
-      class="button"
-      (click)="showIndex(cell)"
-      [disabled]="isButtonDisabled(cell.row, cell.col)"
-      [class.isAHit]="isAHit(cell.row, cell.col)"
-    >
-    </button>
-  </div>
-</div> -->
-
 <!-- Grid represents one grid for the PvP game screen -->
 <div class="game">
   <div class="box" [class.isClicked]="isClicked[cell.row-1][cell.col-1]" *ngFor="let cell of cells"
-    (click)="showIndex(cell)">
-    <!-- <button class="button" (click)="showIndex(cell)" [disabled]="isButtonDisabled(cell.row, cell.col)"
-      [class.isAHit]="isAHit(cell.row, cell.col)">
-    </button> -->
+    [class.isAHit]="isAShip[cell.row-1][cell.col-1]" (click)="handleClick(cell)">
   </div>
 </div>
