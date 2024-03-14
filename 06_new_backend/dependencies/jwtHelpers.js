@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const secret = process.env.JWT_SECRET;
-const User = require("../models/user");
+const User = require("../models/User");
 const mongoose = require("mongoose");
 
 /** Middleware helper function to verify JWT token
@@ -14,7 +14,7 @@ async function verifyJwt(req, res, next) {
 
   // If there is no token
   if (!token) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized, no JWT found." });
   }
 
   // Verify token
@@ -24,20 +24,19 @@ async function verifyJwt(req, res, next) {
     req.user = decoded;
     next();
   } catch (err) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized JWT" });
   }
 }
 
 /** helper function to get the user object from it's ID
  */
 async function getUserFromId(userId) {
-  const user = await User.find({ _id: userId });
+  const user = await User.findOne({ _id: userId });
 
   if (!user) {
     return false;
   }
-
-  return user[0];
+  return user
 }
 
 /** Middleware helper function to get and set the user object in request object
@@ -46,7 +45,7 @@ async function getUserFromId(userId) {
  * @param {Function} next - next function to call
  */
 async function getUserMiddleware(req, res, next) {
-  const user = await getUserFromId(req.user._id);
+  const user = await getUserFromId(req.user.userId);
   if (!user) {
     return res.status(401).json({ message: "Unauthorized" });
   }
