@@ -5,8 +5,7 @@ const placements = require('../models/placements');
 const moves = require('../models/moves');
 // this is the playerschema
 const playerSchema = new mongoose.Schema({
-  gameId: { type: String, unique: true },
-  // uuid of the user who start the game 
+  // uuid of the user who start the game
   startedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   startedAt: { type: Date },
   // default height and widht 

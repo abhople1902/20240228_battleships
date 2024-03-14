@@ -10,17 +10,26 @@ import { EventEmitter } from '@angular/core';
   styleUrl: './grid.component.css',
 })
 export class GridComponent {
+
+  isClicked: Array<Array<boolean>> = []
+
+  // isHit: Array<Array<boolean>> = []
+
   cells: { row: number; col: number }[] = [];
   clickedIndices = new Set<{ row: number; col: number }>();
   successfulHits = new Set<{ row: number; col: number }>();
 
   @Output() indexClicked = new EventEmitter<{ row: number; col: number }>();
 
-  ngOnInit() {
+
+  constructor() {
     for (let row = 1; row <= 8; row++) {
+      const tempArrayOfFalses: Array<boolean> = []
       for (let col = 1; col <= 8; col++) {
         this.cells.push({ row, col });
+        tempArrayOfFalses.push(false)
       }
+      this.isClicked.push(tempArrayOfFalses)
     }
   }
 
