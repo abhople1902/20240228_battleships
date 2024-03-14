@@ -10,19 +10,21 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../auth.service';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css',
+  providers: [AuthService],
 })
 export class ResetPasswordComponent {
   /** Form group for resetting password. */
   resetPasswordForm: FormGroup;
-  /** Token received for resetting password. */
+  // /** Token received for resetting password. */
   token!: string;
 
   /**
@@ -35,7 +37,8 @@ export class ResetPasswordComponent {
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private httpClient: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
   ) {
     // Initialize reset password form
     this.resetPasswordForm = this.formBuilder.group({
@@ -59,6 +62,7 @@ export class ResetPasswordComponent {
    * Otherwise, marks all form fields as touched for validation.
    */
   onSubmit() {
+    console.log('clicked');
     if (this.resetPasswordForm.valid) {
       const newPassword = this.resetPasswordForm.get('password')?.value;
       const confirmPassword =
@@ -66,16 +70,28 @@ export class ResetPasswordComponent {
       const password = {
         newPassword: newPassword,
       };
+      // Extract token from query parameters
+      // const queryParams = new URLSearchParams(window.location.search);
+      // const token = queryParams.get('token');
+      let token;
+
+      // console.log(queryParams, token);
+      this.activatedRoute.paramMap.subscribe(
+        (params) => (token = params.get('token'))
+      );
+
+      // Check if token is available
+      if (!token) {
+        console.error('Token not found in query parameters');
+        return;
+      }
       // Send HTTP request to reset password
-      this.httpClient
-        .put(
-          `http://localhost:3000/auth/reset-password?token=${this.token}`,
-          password
-        )
+      this.authService
+        .request('PUT', `auth/reset-password/token=${token}`, password)
         .subscribe(
           (response) => {
             // Password reset successful, navigate to login page
-            this.router.navigate(['']);
+            this.router.navigate(['/signin']);
           },
           (error) => {
             // Handle error (e.g., display error message)

@@ -8,7 +8,11 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 // import { HttpClientModule } from '@angular/common/http';
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  HttpClientModule,
+  provideHttpClient,
+  withFetch,
+} from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClient } from '@angular/common/http';
@@ -18,13 +22,12 @@ import { CommonModule } from '@angular/common';
   selector: 'app-regiter',
   standalone: true,
   imports: [
-
     HttpClientModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './regiter.component.html',
   styleUrl: './regiter.component.css',
@@ -40,7 +43,7 @@ export class RegiterComponent {
    * Initializes the signup form with validators for username, email, and password fields.
    * @param formBuilder FormBuilder instance for creating the form group
    */
-  constructor(private formBuilder: FormBuilder,private  http:HttpClient) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
     this.signupForm = this.formBuilder.group({
       username: [
         '',
@@ -117,13 +120,13 @@ export class RegiterComponent {
   //     console.log('Form is invalid. Please fix the errors.');
   //   }
   // }
-  onSubmit(){
-    const userData={
-      username:this.username,
-      email:this.email,
-      password:this.password,
-    }   
-    this.http.post('http://localhost:3000/auth/signup',userData).subscribe({
+  onSubmit() {
+    const userData = {
+      username: this.username,
+      email: this.email,
+      password: this.password,
+    };
+    this.http.post('http://localhost:3000/auth/signup', userData).subscribe({
       next: (response) => {
         // Handle the response if needed
         console.log('Signup successful', response);
@@ -131,7 +134,7 @@ export class RegiterComponent {
       error: (error) => {
         // Handle any errors here
         console.error('Signup failed', error);
-      }
+      },
     });
   }
 

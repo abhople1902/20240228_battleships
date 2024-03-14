@@ -63,14 +63,14 @@ async function register(req, res) {
 async function login(req, res) {
   const { username, password } = req.body;
   // console.log(username);
-  console.log(req.body)
+  console.log(req.body);
 
   // Validate username format
   if (!usernameValidator(username)) {
     return res.status(400).json({ message: "Invalid username format" });
   }
 
-  console.log("Heere")
+  console.log("Heere");
 
   // Validate password length
   if (!passwordValidator(password)) {
@@ -158,7 +158,7 @@ const forgetPassword = async (req, res, next) => {
       });
 
       // Email options
-      const resetButtonLink = `${process.env.LIVE_URL}/reset-password?token=${token}`;
+
       const mailOptions = {
         from: "mugdha.padgelwar2024@gmail.com",
         to: user.email,
