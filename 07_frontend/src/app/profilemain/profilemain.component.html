@@ -1,21 +1,28 @@
 <body>
-    
     <div class="card">
-
+        <!-- This is front side info -->
         <div class="content">
-            <h4 style="margin-top: 10px;">Player Card</h4>
-            <div class="text">
-                <h1>Username</h1>
-                <p>keshav khandelwal</p>
+            <p  class="text-font"style="margin-top: 50px; font-size: 40px; ">Player Card</p>
+            <div class="text" style="margin-top: 70px;">
+                <h1 class="text-font">{{userName}}</h1>
+                <hr>
+                <p style="font-size: larger;">{{playerUsername}}</p>
             </div>
         </div>
+        <!-- This is the back side details -->
         <div class="back">
-            <h1>Player Stats</h1>
-            <div class="text">
-                <p>Matches Won: 10</p>
-                <p>Matches Lost: 5</p>
+            <h1 class="text-font" 
+            style="margin-top: 30px;
+            font-size: 50px;
+            text-decoration: wavy;  
+            ">PlaYer</h1>
+            <h1 class="text-font" style="font-size: 30px;">Stats</h1>
+            <div class="text" style="margin-top:40px ;">
+                <p>Matches Played:{{ matchesPlayed}}</p>
+                <p>Matches Won: {{matchesWon}}</p>
+                <p>Matches Lost: {{ matchesLoss}}</p>
+                <p>winning Percentage:{{WinningPer}}</p>
             </div>
-            
             <!-- Add more stats as needed -->
         </div>
     </div>

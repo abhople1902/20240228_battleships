@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 body {
     display: flex;
     justify-content: center;
@@ -7,11 +8,12 @@ body {
 }
 
 .card {
-    width: 250px;
-    height: 300px;
+    width: min(90vw, 400px);
+    height: min(90vh, 450px);
     position: relative;
     cursor: pointer;
     perspective: 1000px;
+    border-radius: 20px;
 
 }
 
@@ -33,6 +35,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    border-radius: 10px;
 }
 
 .card .content {
@@ -51,7 +54,7 @@ body {
 }
 
 .card:hover .content   {
-    color: rgb(209, 69, 69);
+    /* color: rgb(209, 69, 69); */
     transform: rotateY(180deg);
     visibility: hidden;
     /* color: rgb(18, 234, 234); */
@@ -59,18 +62,23 @@ body {
 
 .card:hover .back  {
     transform: rotateY(0deg);
-    color: #c538c7;
+    color: #2aab35;
     visibility: visible;
 }
 
-
+/*  CSS FOR THE TEXT CONTENT */
 .card .content .text,
 .card .back .text {
     justify-content: center;
-    margin-top: 60px;
+    margin-top: 90px;
     text-align: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
     padding: 10px; /* Add padding to create some space around the text */
     border-radius: 10px; /* Add border radius for rounded corners */
 }
+
+
+.text-font {
+    font-family: 'Pixelify Sans', sans-serif;
+  }
