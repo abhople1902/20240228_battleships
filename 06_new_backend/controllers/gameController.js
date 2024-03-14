@@ -73,9 +73,9 @@ async function saveShipPlacements(req, res) {
   const { gameId, position, shipType } = req.body;
 
   const playerID = req.user._id;
-  
+
   const playertype = "Human";
-  
+
   try {
     // Check if the game exists
     const gaming = await Game.findOne({ _id: gameId });
@@ -97,19 +97,26 @@ async function saveShipPlacements(req, res) {
     // }
 
     // Saving the ship placements
-    const placement = {
-      playerID,
-      shipPlacements: position,
-      shipType,
-    };
+    const placements = [];
+    //   playerID,
+    //   shipPlacements: position,
+    //   shipType,
+    // };
+
+    for (let i = 0; i < position.length; i++) {
+      placements.push({
+        playerID,
+        shipPlacements: position[i],
+        shipType,
+      });
+    }
 
     // Human ships correspond to player 1 and
     // computer ships correspond to player 2.
     if (playertype === "Human") {
-      gaming.placementsPlayer1.push(placement);
-    } 
-    else {
-      gaming.placementsPlayer2.push(placement);
+      gaming.placementsPlayer1 = placements;
+    } else {
+      gaming.placementsPlayer2 = placements;
     }
 
     await gaming.save();
