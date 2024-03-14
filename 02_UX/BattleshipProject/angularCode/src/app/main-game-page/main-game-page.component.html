@@ -1,8 +1,0 @@
-<div class="grid-container">
-  <div class="player-ships-grid" [class.covered]="currentTurn === 'Human'">
-    <app-grid (indexClicked)="handleIndexClicked($event)"></app-grid>
-  </div>
-  <div class="computer-ships-grid" [class.covered]="currentTurn === 'Computer'">
-    <app-grid (indexClicked)="handleIndexClicked($event)"></app-grid>
-  </div>
-</div>
