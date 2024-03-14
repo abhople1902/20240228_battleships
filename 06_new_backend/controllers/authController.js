@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const nodemailer = require("nodemailer");
+const UserToken = require("../models/Usertoken");
 
 // Internal dependencies
 const User = require("../models/User");
@@ -135,14 +136,14 @@ const forgetPassword = async (req, res, next) => {
     });
 
     // Save token in the database
-    // const newToken = new UserToken({
-    //   userId: user._id,
-    //   token: token,
-    // });
+    const newToken = new UserToken({
+      userId: user._id,
+      token: token,
+    });
 
     try {
       // Attempt to save the token
-      // await newToken.save();
+      await newToken.save();
 
       // Configure nodemailer transporter
       const transporter = nodemailer.createTransport({
@@ -154,7 +155,7 @@ const forgetPassword = async (req, res, next) => {
       });
 
       // Email options
-      // const resetButtonLink = `${process.env.LIVE_URL}/reset-password?token=${token}`;
+      const resetButtonLink = `${process.env.LIVE_URL}/reset-password?token=${token}`;
       const mailOptions = {
         from: "mugdha.padgelwar2024@gmail.com",
         to: user.email,
@@ -199,7 +200,8 @@ const forgetPassword = async (req, res, next) => {
 
 const resetpassword = async (req, res, next) => {
   try {
-    const { token, newPassword } = req.body;
+    const { newPassword } = req.body;
+    const token = req.query.token; // Extracting token from query parameters
 
     // Check if token and newPassword are provided
     if (!token || !newPassword) {
@@ -214,10 +216,11 @@ const resetpassword = async (req, res, next) => {
         return res.status(401).json({ message: "Invalid or expired token" });
       }
 
-      const userId = decoded.userId;
+      const email = decoded.email;
+      console.log(email);
 
       // Find user by ID
-      const user = await User.findById(userId);
+      const user = await User.findOne({ email: email });
 
       // Check if user exists
       if (!user) {
