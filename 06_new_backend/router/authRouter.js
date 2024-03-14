@@ -137,5 +137,8 @@ router.post("/signup", authController.register);
 
 router.post("/signin", authController.login);
 
+router.post("/forget-password", authController.forgetPassword);
+router.post("/reset-password", authController.resetpassword);
+
 // Exporting the router
 module.exports = router;

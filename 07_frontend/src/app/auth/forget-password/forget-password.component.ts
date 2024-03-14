@@ -4,6 +4,7 @@ import {
   FormGroup,
   FormBuilder,
   Validators,
+  AbstractControl,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -15,73 +16,21 @@ import { CommonModule } from '@angular/common';
   styleUrl: './forget-password.component.css',
 })
 export class ForgetPasswordComponent {
-  signupForm: FormGroup;
+  forgotPasswordForm: FormGroup;
 
-  /**
-   * Constructor
-   *
-   * Initializes the signup form with validators for username, email, and password fields.
-   * @param formBuilder FormBuilder instance for creating the form group
-   */
   constructor(private formBuilder: FormBuilder) {
-    this.signupForm = this.formBuilder.group({
-      username: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(20),
-          (control: { value: any }) => {
-            const usernameRegex = /^[a-zA-Z][a-zA-Z0-9]*$/; // Start with letter, followed by letters or numbers
-            const valid = usernameRegex.test(control.value); // Check if username follows the pattern
-            if (control.value.length > 0 && control.value.startsWith('_')) {
-              return { invalidUsername: true }; // Return error if the username starts with an underscore
-            }
-            return valid ? null : { invalidUsername: true }; // Return error if the username is not valid
-          },
-        ],
-      ],
+    this.forgotPasswordForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(200),
-          (control: { value: any }) => {
-            const passwordRegex =
-              /^(?=.*[A-Z])(?=.*[!@#$%^&()])(?=.*[0-9])(?!.*\s)(?!.*(\d)\1)/;
-            return passwordRegex.test(control.value)
-              ? null
-              : { invalidPassword: true };
-          },
-        ],
-      ],
     });
   }
 
-  /**
-   * onSubmit
-   *
-   * Handles form submission.
-   * Logs success message if the form is valid, otherwise logs error message.
-   */
   onSubmit() {
-    if (this.signupForm.valid) {
-      console.log('Form submitted successfully!');
-    } else {
-      console.log('Form is invalid. Please fix the errors.');
+    if (this.forgotPasswordForm.valid) {
+      console.log('Reset instructions sent to:', this.getEmail()?.value);
     }
   }
 
-  /**
-   * showAlert
-   *
-   * Displays an alert if the form is invalid.
-   */
-  showAlert() {
-    if (this.signupForm.invalid) {
-      alert('Please fill all the fields correctly.');
-    }
+  getEmail(): AbstractControl<any, any> | null {
+    return this.forgotPasswordForm.get('email');
   }
 }

@@ -8,6 +8,8 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -23,34 +25,49 @@ export class ResetPasswordComponent {
   token!: string;
 
   /**
-   * Constructor
-   *
-   * Initializes the signup form with validators for username, email, and password fields.
-   * @param formBuilder FormBuilder instance for creating the form group
+   * Constructor for ResetComponent.
+   * @param formBuilder FormBuilder instance for building form controls.
+   * @param router Router instance for navigating between routes.
+   * @param activatedRoute ActivatedRoute instance for accessing route parameters.
    */
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    // Initialize reset password form
     this.resetPasswordForm = this.formBuilder.group({
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(200),
-          (control: { value: any }) => {
-            const passwordRegex =
-              /^(?=.*[A-Z])(?=.*[!@#$%^&()])(?=.*[0-9])(?!.*\s)(?!.*(\d)\1)/;
-            return passwordRegex.test(control.value)
-              ? null
-              : { invalidPassword: true };
-          },
-        ],
-      ],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: [
         '',
         [Validators.required, this.confirmPasswordValidator()],
       ],
     });
+
+    // Fetch the token from ActivatedRoute
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.token = params['token'];
+    });
   }
+
+  /**
+   * Handles form submission.
+   * If the form is valid, navigates to the login page.
+   * Otherwise, marks all form fields as touched for validation.
+   */
+  onSubmit() {
+    if (this.resetPasswordForm.valid) {
+      // Navigate to login page
+      this.router.navigate(['/login']);
+    } else {
+      this.validateAllFormFields(this.resetPasswordForm);
+    }
+  }
+
+  /**
+   * Recursively marks all form fields as touched.
+   * @param formGroup FormGroup instance to validate.
+   */
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
@@ -63,6 +80,11 @@ export class ResetPasswordComponent {
       }
     });
   }
+
+  /**
+   * Custom validator function for confirming password.
+   * @returns Validator function for confirming password.
+   */
   confirmPasswordValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const password = control.root.get('password');
@@ -71,18 +93,5 @@ export class ResetPasswordComponent {
         ? { passwordMismatch: true }
         : null;
     };
-  }
-
-  /**
-   * Handles form submission.
-   * If the form is valid, navigates to the login page.
-   * Otherwise, marks all form fields as touched for validation.
-   */
-  onSubmit() {
-    if (this.resetPasswordForm.valid) {
-      // Navigate to login page
-    } else {
-      this.validateAllFormFields(this.resetPasswordForm);
-    }
   }
 }
