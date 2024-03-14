@@ -25,48 +25,44 @@ async function checkShipPlacement(req, res) {
     const gaming = await Game.findOne({ _id: gameId });
 
     if (!gaming) {
-      return res
-        .status(401)
-        .json({ success: false, message: "Game not found" });
+      return res.status(401).json({ success: false, message: "Game not found" });
     }
 
-    // Validating the input
-    // if (!positionValidator(position) || !playerTypeValidator(playertype)) {
-    //   return res.status(400).json({ success: false, message: "Invalid input" });
-    // }
-
     // Taking the placements of the respective player.
-    const placements =
-      playertype === "Human"
-        ? gaming.placementsPlayer2
-        : gaming.placementsPlayer1;
+    const placements = playertype === "Human" ? gaming.placementsPlayer2 : gaming.placementsPlayer1;
+
+    const placementsLeft = placements.length
 
     for (let i = 0; i < placements.length; i++) {
-      const allShipPlacementsX = placements[i].shipPlacements.map((pos) => {
-        return pos.x;
-      });
-
-      const allShipPlacementsY = placements[i].shipPlacements.map((pos) => {
-        return pos.y;
-      });
+      const allShipPlacementsX = placements[i].shipPlacements.map((pos) => pos.x);
+      const allShipPlacementsY = placements[i].shipPlacements.map((pos) => pos.y);
 
       console.log(allShipPlacementsX, allShipPlacementsY);
+
       for (let j = 0; j < allShipPlacementsX.length; j++) {
-        if (
-          allShipPlacementsX[j] === position.x &&
-          allShipPlacementsY[j] === position.y
-        ) {
-          return res.status(200).json({ success: true, message: "Ship found" });
+        if (allShipPlacementsX[j] === position.x && allShipPlacementsY[j] === position.y) {
+          // Remove the found point from ship placements
+          // removing the entire placements for now
+          // This will not work if the ships have length > 1
+
+          if (playertype === "Human") gaming.placementsPlayer2.splice(i, 1)
+          else gaming.placementsPlayer1.splice(i, 1)
+          await gaming.save(); // Save the updated document
+
+          if (placementsLeft === 1) {
+            return res.status(206).send(`${playertype} Won!`)
+          }
+          return res.status(204).send("Ship hit!")
         }
       }
     }
-
     res.status(202).json({ success: true, message: "No ship found" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 }
+
 
 /** Controller for  saveShipPlacements */
 async function saveShipPlacements(req, res) {
