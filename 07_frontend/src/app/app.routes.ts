@@ -16,10 +16,9 @@ export const routes: Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'register', component: RegiterComponent },
   { path: 'forgetpassword', component: ForgetPasswordComponent },
-  { path: 'gamestart', component: GridComponent },
   { path: 'resetpassword/:token', component: ResetPasswordComponent },
   { path: 'game/:gameId', component: MainGamePageComponent },
-  { path: 'shipplacer', component: PlacerComponent },
+  { path: 'shipplacer', component: PlacerComponent},
   { path: 'profile', component: ProfilemainComponent },
   { path: '**', component: NotfoundpageComponent },
 ];

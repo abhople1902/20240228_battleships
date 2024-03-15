@@ -132,6 +132,7 @@ export class MainGamePageComponent implements OnInit {
             resolve(true)
           }
           else if (response.status === 206) {
+            console.log(`${this.currentTurn} has won`)
             resolve(true)
           }
           // Never reaches here
