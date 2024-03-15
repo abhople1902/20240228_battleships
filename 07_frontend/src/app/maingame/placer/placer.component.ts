@@ -70,22 +70,22 @@ export class PlacerComponent {
     return count;
   }
 
-  /** Saving the ships data */
-  saveData(moveOn: Function) {
-    const dataToBeSent = {
-      gameId: '65f16f48e2b178136bf3ca78',
-      position: this.getShipPlacementsJson(),
-      shipType: 'Carriers',
-    };
-    console.log('Here!');
-    this.authService.request('POST', 'game/place-ship', dataToBeSent).subscribe(
-      (response) => {
-        console.log(response);
-        moveOn('65f16f48e2b178136bf3ca78');
-      },
-      (error) => {}
-    );
-  }
+    /** Saving the ships data */
+    saveData(moveOn: Function) {
+      const dataToBeSent = {
+        gameId: '65f16f48e2b178136bf3ca78',
+        position: this.getShipPlacementsJson(),
+        shipType: 'Carriers',
+      };
+      console.log('Here!');
+      this.authService.request('POST', 'game/place-ship', dataToBeSent).subscribe(
+        (response) => {
+          console.log(response);
+          moveOn('65f16f48e2b178136bf3ca78');
+        },
+        (error) => {}
+      );
+    }
 
   getShipPlacementsJson(): { x: number; y: number }[] {
     const outputArray: { x: number; y: number }[] = [];

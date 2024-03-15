@@ -1,19 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
-body {
+
+.main {
     display: flex;
     justify-content: center;
+    overflow: hidden;
     align-items: center;
-    height: 100vh;
-    background-image: url('../../assets/backgound_profile.jpeg')
+    height: 90vh;
+    /* background-color: azure;x     */
+    background: fixed;
+    /* background-image: url('../../assets/backgound_profile.jpeg') */
 }
 
 .card {
-    width: min(90vw, 400px);
-    height: min(90vh, 450px);
+    width: min(90vw, 350px);
+    height: min(90vh, 400px);
     position: relative;
     cursor: pointer;
     perspective: 1000px;
     border-radius: 20px;
+    overflow: hidden; 
 
 }
 
@@ -24,7 +29,7 @@ body {
     background: rgba(255, 255, 255, 0.089);
     backdrop-filter: blur(20px);
     border: 1px solid white;
-    color: white;
+    /* color: rgb(188, 44, 44); */
     display: flex;
     /* justify-content: center; */
     align-items: center;

@@ -15,9 +15,19 @@ export class MainGamePageComponent {
   readonly totalScore = 5
 
   currentTurn: 'Human' | 'Computer' = 'Human';
+  temporaryIndices = new Set<{ row: number; col: number }>();
+
 
   constructor() {
     // Hardcoded indices for the ship
+    this.temporaryIndices.add({ row: 1, col: 1 });
+    this.temporaryIndices.add({ row: 2, col: 2 });
+    this.temporaryIndices.add({ row: 3, col: 3 });
+    this.temporaryIndices.add({ row: 4, col: 4 });
+    this.temporaryIndices.add({ row: 5, col: 5 });
+    this.temporaryIndices.add({ row: 6, col: 6 });
+    this.temporaryIndices.add({ row: 7, col: 7 });
+    this.temporaryIndices.add({ row: 8, col: 8 });
   }
 
   @ViewChildren(GridComponent) gridComponents!: QueryList<GridComponent>;
@@ -84,7 +94,10 @@ export class MainGamePageComponent {
 
   /** Placeholder for the API call. */
   checkIndex(row: number, col: number) {
-    
-    return true;
+    const exists = [...this.temporaryIndices].some(
+      (obj) => obj.row === row && obj.col === col
+    );
+
+    return exists;
   }
 }
