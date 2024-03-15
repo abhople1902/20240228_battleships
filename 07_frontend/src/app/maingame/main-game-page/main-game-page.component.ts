@@ -16,7 +16,6 @@ export class MainGamePageComponent implements OnInit {
   humanScore = 3
   computerScore = 2
   readonly totalScore = 5
-  currentTurn: 'Human' | 'Computer' = 'Human';
   temporaryIndices = new Set<{ row: number; col: number }>();
   currentTurn: 'Human' | 'Bot' = 'Human';
 
