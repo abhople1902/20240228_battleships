@@ -87,7 +87,7 @@ export class ResetPasswordComponent {
       }
       // Send HTTP request to reset password
       this.authService
-        .request('PUT', `auth/reset-password/token=${token}`, password)
+        .request('PUT', `auth/reset-password?token=${token}`, password)
         .subscribe(
           (response) => {
             // Password reset successful, navigate to login page

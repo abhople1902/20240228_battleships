@@ -17,14 +17,13 @@ import { Router } from '@angular/router';
   imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.css',
-  providers: [AuthService]
+  providers: [AuthService],
 })
 export class SigninComponent {
   signupForm: FormGroup;
   username: string = '';
   password: string = '';
-  // apiUrl: string = 'http://localhost:3000/auth/signin'; 
-
+  // apiUrl: string = 'http://localhost:3000/auth/signin';
 
   /**
    * Constructor
@@ -42,7 +41,6 @@ export class SigninComponent {
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
-
   }
 
   /**
@@ -52,28 +50,27 @@ export class SigninComponent {
    * Logs success message if the form is valid, otherwise logs error message.
    */
   onSubmit() {
-    console.log("submit button is press")
+    console.log('submit button is press');
     console.log('Form submitted successfully!');
     const userData = {
       username: this.username,
-      password: this.password
-    }
-    this.http.post<any>('http://localhost:3000/auth/signin', userData).subscribe({
-      next: async (response) => {
-        console.log("Login Successful", response)
-        // Store token in localStorage or sessionStorage
-        // const data = await response.json()
-        const token = response.token;
-        this.authService.setToken(token);
-        this.router.navigate(['/shipplacer'])
-      },
-      error: (error) => {
-
-        console.error('Login Fail', error)
-      }
-
-
-    })
+      password: this.password,
+    };
+    this.http
+      .post<any>('http://localhost:3000/auth/signin', userData)
+      .subscribe({
+        next: async (response) => {
+          console.log('Login Successful', response);
+          // Store token in localStorage or sessionStorage
+          // const data = await response.json()
+          const token = response.token;
+          this.authService.setToken(token);
+          this.router.navigate(['/shipplacer']);
+        },
+        error: (error) => {
+          console.error('Login Fail', error);
+        },
+      });
   }
   // onSubmit() {
   //   if (this.username && this.password) {
@@ -119,5 +116,8 @@ export class SigninComponent {
     if (this.signupForm.invalid) {
       alert('Please fill all the fields correctly.');
     }
+  }
+  takeToForgotPasswordPage() {
+    this.router.navigate(['/forgetpassword']);
   }
 }

@@ -18,7 +18,7 @@
       placeholder="Username"
       formControlName="username"
       required
-      [(ngModel)]="username"  
+      [(ngModel)]="username"
     />
 
     <!-- input usename -->
@@ -55,7 +55,7 @@
       formControlName="password"
       required
       placeholder="Password"
-      [(ngModel)]="password"  
+      [(ngModel)]="password"
     />
     <!-- input password -->
 
@@ -81,6 +81,7 @@
       Password is required
     </div>
   </div>
+
   <!-- button section -->
   <button
     class="btn block-cube block-cube-hover"
@@ -99,4 +100,8 @@
     </div>
     <div class="text">Log In</div>
   </button>
+  <!-- Forgot Password link -->
+  <div class="forgot-password-link">
+    <a (click)="takeToForgotPasswordPage()">Forgot Password?</a>
+  </div>
 </form>
