@@ -16,12 +16,10 @@ export class MainGamePageComponent implements OnInit {
   humanScore = 3
   computerScore = 2
   readonly totalScore = 5
-  currentTurn: 'Human' | 'Computer' = 'Human';
   temporaryIndices = new Set<{ row: number; col: number }>();
   currentTurn: 'Human' | 'Bot' = 'Human';
 
-  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute) {
-  }
+  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit() {
     let gameId = this.getGameId()
