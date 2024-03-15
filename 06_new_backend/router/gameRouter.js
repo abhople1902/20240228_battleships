@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const gameController = require("../controllers/gameController");
 const { verifyJwt, getUserMiddleware } = require("../dependencies/jwtHelpers");
+const { verify } = require("jsonwebtoken");
 
 /**
  * @swagger
@@ -186,5 +187,7 @@ router.post("/check-ship", verifyJwt, getUserMiddleware, gameController.checkShi
 *                   example: Internal server error.
 */
 router.post("/place-ship", verifyJwt, getUserMiddleware, gameController.saveShipPlacements)
+
+router.get('/data/:gameId', verifyJwt, getUserMiddleware, gameController.getGameData)
 
 module.exports = router;

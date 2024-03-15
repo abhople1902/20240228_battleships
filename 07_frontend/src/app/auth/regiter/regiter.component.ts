@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-regiter',
@@ -43,7 +44,11 @@ export class RegiterComponent {
    * Initializes the signup form with validators for username, email, and password fields.
    * @param formBuilder FormBuilder instance for creating the form group
    */
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private router: Router
+  ) {
     this.signupForm = this.formBuilder.group({
       username: [
         '',
@@ -130,6 +135,7 @@ export class RegiterComponent {
       next: (response) => {
         // Handle the response if needed
         console.log('Signup successful', response);
+        this.router.navigate(['/signin']);
       },
       error: (error) => {
         // Handle any errors here

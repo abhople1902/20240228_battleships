@@ -148,3 +148,16 @@ input {
   letter-spacing: 0.05em;
   font-size: 16px;
 }
+
+.forgot-password-link {
+  color: #fff;
+  font-family: monospace, serif;
+  letter-spacing: 0.05em;
+  font-size: 16px;
+  margin-top: 20px;
+  padding: 1vh;
+  height: 5vh;
+  width: 15vh;
+  background: rgb(2, 0, 36);
+  border-radius: 6px;
+}
