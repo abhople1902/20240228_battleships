@@ -21,7 +21,7 @@ export class PlacerComponent {
     private router: Router,
     private http: HttpClient,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit() {
     for (let row = 1; row <= 8; row++) {
@@ -72,18 +72,33 @@ export class PlacerComponent {
 
   /** Saving the ships data */
   saveData(moveOn: Function) {
+    let gameId: String = ""
+    this.authService.request('POST', 'game/start').subscribe(
+      (response) => {
+        console.log(response.body)
+        gameId = response.body.toString()
+        this.placeShips(gameId, moveOn)
+      },
+      (error) => {
+        console.error(error)
+      }
+    )
+
+  }
+  placeShips(gameId: String, moveOn: Function) {
     const dataToBeSent = {
-      gameId: '65f16f48e2b178136bf3ca78',
+      gameId: gameId,
       position: this.getShipPlacementsJson(),
       shipType: 'Carriers',
     };
-    console.log('Here!');
     this.authService.request('POST', 'game/place-ship', dataToBeSent).subscribe(
       (response) => {
         console.log(response);
-        moveOn('65f16f48e2b178136bf3ca78');
+        moveOn(gameId);
       },
-      (error) => {}
+      (error) => {
+        console.error(error)
+      }
     );
   }
 

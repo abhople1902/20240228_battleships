@@ -10,6 +10,9 @@ import { EventEmitter } from '@angular/core';
   styleUrl: './grid.component.css',
 })
 export class GridComponent {
+
+  @Input() isActivatedGrid: boolean = true
+
   // TODO: Make this 3 into 1 using codes (0 / 1 / -1)
   isClicked: Array<Array<boolean>> = []
   isAShip: Array<Array<boolean>> = []
@@ -34,19 +37,20 @@ export class GridComponent {
 
   /** Handles the event when a tile is clicked */
   handleClick(cell: { row: number; col: number }) {
+    // If the button is disabled, a move has happened there
     if (this.isButtonDisabled(cell)) {
       alert("Already played there!")
       return
     }
-    if (!this.isClicked[cell.row][cell.col]) {
-      this.indexClicked.emit(cell);
-      this.isClicked[cell.row - 1][cell.col - 1] = true
-    }
+
+    // True
+    this.indexClicked.emit(cell);
+    this.isClicked[cell.row - 1][cell.col - 1] = true
   }
 
   /** Helper (called by parent) to make the move of the bot. */
   makeAMove(row: number, col: number) {
-    alert(`Bot made a move at ${row}, ${col}`);
+    alert(`Bot made a move at ${col}, ${row}`);
     this.handleClick({ row, col });
   }
 

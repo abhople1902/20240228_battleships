@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { response } from 'express';
 
 
 @Injectable({
@@ -26,7 +28,7 @@ export class AuthService {
     return !!this.getToken();
   }
 
-  request(method: string, url: string, data?: any) {
+  request(method: string, url: string, data?: any): Observable<HttpResponse<any>> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.getToken()}`
     });
@@ -35,7 +37,8 @@ export class AuthService {
 
     return this.http.request(method, `${baseUrl}/${url}`, {
       headers,
-      body: data
+      body: data,
+      observe: 'response'
     });
   }
 }
