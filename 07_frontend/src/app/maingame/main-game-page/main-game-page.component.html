@@ -3,12 +3,12 @@
   <div class="grid-container">
     <div class="ships-grid">
       <h1 class="score-indicator">{{computerScore}} / {{totalScore}}</h1>
-      <app-grid (indexClicked)="handleIndexClicked($event)" [class.covered]="currentTurn === 'Human'">
+      <app-grid (indexClicked)="handleIndexClicked($event)" [class.covered]="currentTurn === 'Human'" [isActivatedGrid]="false">
       </app-grid>
     </div>
     <div class="ships-grid">
       <h1 class="score-indicator">{{humanScore}} / {{totalScore}}</h1>
-      <app-grid (indexClicked)="handleIndexClicked($event)" [class.covered]="currentTurn === 'Computer'">
+      <app-grid (indexClicked)="handleIndexClicked($event)" [class.covered]="currentTurn === 'Bot'" [isActivatedGrid]="true">
       </app-grid>
     </div>
   </div>
