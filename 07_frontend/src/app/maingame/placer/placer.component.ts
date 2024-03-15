@@ -69,7 +69,6 @@ export class PlacerComponent {
     }
     return count;
   }
-
   /** Saving the ships data */
   saveData(moveOn: Function) {
     let gameId: String = ""
@@ -101,7 +100,6 @@ export class PlacerComponent {
       }
     );
   }
-
   getShipPlacementsJson(): { x: number; y: number }[] {
     const outputArray: { x: number; y: number }[] = [];
 

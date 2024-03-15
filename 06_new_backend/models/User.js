@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String },
   totalGamesPlayed: { type: Number, default: 0 },
   playertype: { type: String, enum: playerType, default: playerType[0] },
+  gameWon:{type:Number,default:0},
 });
 
 // const User = ;
