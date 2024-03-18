@@ -5,4 +5,4 @@ const shipType = ["Carriers", "Submarine", "Destroyer", "Cruiser", "Frigate"];
 const playerType = ["Bot", "Human"];
 const gameStatusCodes = [0, -1, 1, 2];
 
-module.exports = { playerType, gameStatusCodes };
+module.exports = { playerType, gameStatusCodes, shipType };
