@@ -1,47 +1,54 @@
 .game-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }
 
 .turn-indicator {
-    font-size: 3rem;
-    color: white;
+  font-size: 3rem;
+  color: white;
 }
 
 .grid-container {
-    display: flex;
-    overflow: hidden;
-    gap: 8rem;
+  display: flex;
+  overflow: hidden;
+  gap: 8rem;
 }
 
 /* Covering a grid when it's not their turn */
 .covered {
-    top: 0;
-    left: 0;
-    background-color: rgba(255, 255, 255, 0.1);
-    /* Semi-transparent black overlay */
-    pointer-events: none;
-    z-index: 100;
-    /* Ensure the overlay is on top */
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  /* Semi-transparent black overlay */
+  pointer-events: none;
+  z-index: 100;
+  /* Ensure the overlay is on top */
 }
 
 .score-indicator {
-    font-size: 3rem;
+  font-size: 3rem;
 }
 
 .ships-grid {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 942px) {
-    .grid-container {
-        flex-direction: column;
-        align-items: center;
-    }
+  .grid-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.custom-dialog-class {
+  width: 50%;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  color: #333;
 }
