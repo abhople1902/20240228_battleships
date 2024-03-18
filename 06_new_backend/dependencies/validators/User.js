@@ -44,22 +44,8 @@ function passwordValidator(password) {
   return true;
 }
 
-/** Validator function for role */
-function roleValidator(role) {
-  // Check for string
-  if (typeof role !== "string") {
-    return false;
-  }
-  // Check for enum
-  if (role !== "user" && role !== "seller" && role !== "admin") {
-    return false;
-  }
-  return true;
-}
-
 module.exports = {
   usernameValidator,
   emailValidator,
   passwordValidator,
-  roleValidator,
 };
